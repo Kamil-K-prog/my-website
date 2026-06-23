@@ -1,395 +1,294 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Резюме | Ретро Сайт</title>
-    <!-- Подключаем современный шрифт Inter -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
-    <!-- Подключаем CSS стили -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+{% extends 'base.html' %}
+
+{% block title %}Резюме | Ретро Сайт{% endblock %}
+
+{% block head %}
     <!-- Подключаем marked.js для рендеринга Markdown -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-</head>
-<body>
-    <!-- Шапка сайта (сверху) -->
-    <header class="site-header" id="siteHeader">
-        <!-- Блок логотипа (слева) -->
-        <div class="logo-block">
-            <div class="logo-circle">
-                <img class="logo-img" src="{{ url_for('static', filename='images/logo.svg') }}" alt="Логотип">
+{% endblock %}
+
+{% block main_class %}resume-layout{% endblock %}
+
+{% block content %}
+    <!-- Секция: Шапка (Hero) -->
+    <section class="resume-section" id="hero">
+        <div class="hero-card">
+            <!-- Левая колонка: Плейсхолдер для фото -->
+            <div class="profile-photo-placeholder">
+                <span>Скоро здесь будет моё фото</span>
+            </div>
+            <!-- Правая колонка: Информация -->
+            <div class="profile-info">
+                <h1 class="profile-name">Кашапов Камиль Марселевич</h1>
+                <h2 class="profile-title">Backend / DevSecOps/ Информационная безопасность</h2>
+                <div class="profile-description">
+                    <p class="profile-text">Студент 3 курса Казанского (Приволжского) федерального университета</p>
+                    <p class="profile-text">Ищу летнюю стажировку/практику для погружения в мир разработки и IT</p>
+                </div>
             </div>
         </div>
-        
-        <!-- Навигация (справа от логотипа) -->
-        <nav class="header-nav">
-            <!-- Ссылка "Главная" -->
-            <a href="/" class="retro-btn nav-btn" id="btnHome" aria-label="Раздел Главная">
-                <div class="btn-shadow">
-                    <div class="corner corner-tl"></div>
-                    <div class="corner corner-br"></div>
-                    <div class="plus-line plus-line-v"></div>
-                    <div class="plus-line plus-line-h"></div>
-                </div>
-                <div class="btn-body">
-                    <span class="btn-text text-idle">Главная</span>
-                    <span class="btn-text text-hover">Главная</span>
-                    <span class="btn-text text-selected">Главная</span>
-                </div>
-            </a>
-            
-            <!-- Ссылка "Резюме" (активна по умолчанию на этой странице) -->
-            <a href="/resume" class="retro-btn nav-btn selected" id="btnResume" aria-label="Раздел Резюме">
-                <div class="btn-shadow">
-                    <div class="corner corner-tl"></div>
-                    <div class="corner corner-br"></div>
-                    <div class="plus-line plus-line-v"></div>
-                    <div class="plus-line plus-line-h"></div>
-                </div>
-                <div class="btn-body">
-                    <span class="btn-text text-idle">Резюме</span>
-                    <span class="btn-text text-hover">Резюме</span>
-                    <span class="btn-text text-selected">Резюме</span>
-                </div>
-            </a>
-        </nav>
-    </header>
+    </section>
 
-    <!-- Основной контент страницы (Секции Резюме) -->
-    <main class="main-content resume-layout">
-        <!-- Секция: Шапка (Hero) -->
-        <section class="resume-section" id="hero">
-            <div class="hero-card">
-                <!-- Левая колонка: Плейсхолдер для фото -->
-                <div class="profile-photo-placeholder">
-                    <span>Скоро здесь будет моё фото</span>
-                </div>
-                <!-- Правая колонка: Информация -->
-                <div class="profile-info">
-                    <h1 class="profile-name">Кашапов Камиль Марселевич</h1>
-                    <h2 class="profile-title">Backend / DevSecOps/ Информационная безопасность</h2>
-                    <div class="profile-description">
-                        <p class="profile-text">Студент 3 курса Казанского (Приволжского) федерального университета</p>
-                        <p class="profile-text">Ищу летнюю стажировку/практику для погружения в мир разработки и IT</p>
-                    </div>
+    <!-- Секция: Обо мне -->
+    <section class="resume-section" id="about">
+        <div class="notepad-window">
+            <!-- Заголовок окна Notepad -->
+            <div class="notepad-titlebar">
+                <span class="notepad-title">Обо мне - Notepad.exe</span>
+                <div class="notepad-controls">
+                    <button class="win-btn btn-minimize" aria-label="Свернуть"><span class="icon-min">_</span></button>
+                    <button class="win-btn btn-maximize" aria-label="Развернуть"><span class="icon-max">□</span></button>
+                    <button class="win-btn btn-close" aria-label="Закрыть"><span class="icon-close">✕</span></button>
                 </div>
             </div>
-        </section>
+            <!-- Строка меню Notepad -->
+            <div class="notepad-menubar">
+                <span class="notepad-menu-item">File</span>
+                <span class="notepad-menu-item">Edit</span>
+                <span class="notepad-menu-item">Search</span>
+                <span class="notepad-menu-item">Help</span>
+            </div>
+            <!-- Рабочая область (контент) -->
+            <div class="notepad-content">
+                <p>Учусь в КФУ на 3-м курсе направления 10.03.01 "Информационная безопасность".<br>Все сессии закрываю на "отлично" и "хорошо".</p>
+                <p>Люблю программировать ещё со школы. Мой путь начался в "Лицее Академии Яндекса"<br>в 2022 году, там я изучил Python.</p>
+                <p>Мой главный принцип - докопаться до сути.<br>Я предпочитаю тщательно изучить материал и понять, как это работает "под<br>капотом", прежде<br>чем двигаться дальше, и этот подход я применяю везде.</p>
+                <p>Обожаю компьютеры и всё, что с ними связано: от инфраструктуры до ПО.<br>Умею строить сложные логические конструкции и стараюсь писать чистый код.<span class="cursor-blink">|</span></p>
+            </div>
+        </div>
+    </section>
 
-        <!-- Секция: Обо мне -->
-        <section class="resume-section" id="about">
-            <div class="notepad-window">
-                <!-- Заголовок окна Notepad -->
-                <div class="notepad-titlebar">
-                    <span class="notepad-title">Обо мне - Notepad.exe</span>
-                    <div class="notepad-controls">
-                        <button class="win-btn btn-minimize" aria-label="Свернуть"><span class="icon-min">_</span></button>
-                        <button class="win-btn btn-maximize" aria-label="Развернуть"><span class="icon-max">□</span></button>
-                        <button class="win-btn btn-close" aria-label="Закрыть"><span class="icon-close">✕</span></button>
-                    </div>
+    <!-- Секция: Что я умею -->
+    <section class="resume-section" id="skills">
+        <div class="skills-window">
+            <!-- Аккордеон 1: Программирование -->
+            <div class="accordion-item expanded" id="accProgramming">
+                <div class="accordion-header" tabindex="0" role="button" aria-expanded="true" aria-controls="accContentProgramming">
+                    <span class="accordion-toggle-btn">-</span>
+                    <span class="accordion-title">Программирование</span>
                 </div>
-                <!-- Строка меню Notepad -->
-                <div class="notepad-menubar">
-                    <span class="notepad-menu-item">File</span>
-                    <span class="notepad-menu-item">Edit</span>
-                    <span class="notepad-menu-item">Search</span>
-                    <span class="notepad-menu-item">Help</span>
-                </div>
-                <!-- Рабочая область (контент) -->
-                <div class="notepad-content">
-                    <p>Учусь в КФУ на 3-м курсе направления 10.03.01 "Информационная безопасность".<br>Все сессии закрываю на "отлично" и "хорошо".</p>
-                    <p>Люблю программировать ещё со школы. Мой путь начался в "Лицее Академии Яндекса"<br>в 2022 году, там я изучил Python.</p>
-                    <p>Мой главный принцип - докопаться до сути.<br>Я предпочитаю тщательно изучить материал и понять, как это работает "под<br>капотом", прежде<br>чем двигаться дальше, и этот подход я применяю везде.</p>
-                    <p>Обожаю компьютеры и всё, что с ними связано: от инфраструктуры до ПО.<br>Умею строить сложные логические конструкции и стараюсь писать чистый код.<span class="cursor-blink">|</span></p>
+                <div class="accordion-content" id="accContentProgramming" role="region" aria-labelledby="accProgramming">
+                    <ul class="skills-list">
+                        <li><strong>Python:</strong> Pytest, Flask, aiogram. Глубоко работаю с API LLM (OpenAI, Google GenAI).</li>
+                        <li><strong>PHP:</strong> Laravel.</li>
+                        <li><strong>SQL:</strong> Проектирую реляционные схемы со связями 1:N, N:N и полиморфными, внешними ключами и каскадным удалением (Eloquent-миграции). SQLite, MySQL, PostgreSQL — в основном через ORM; рукописные запросы: CRUD, агрегация (GROUP BY, HAVING). Оконные функции, CTE и представления не использую.</li>
+                        <li><strong>База:</strong> Понимание принципов SOLID и DRY.</li>
+                    </ul>
                 </div>
             </div>
-        </section>
 
-        <!-- Секция: Что я умею -->
-        <section class="resume-section" id="skills">
-            <div class="skills-window">
-                <!-- Аккордеон 1: Программирование -->
-                <div class="accordion-item expanded" id="accProgramming">
-                    <div class="accordion-header" tabindex="0" role="button" aria-expanded="true" aria-controls="accContentProgramming">
-                        <span class="accordion-toggle-btn">-</span>
-                        <span class="accordion-title">Программирование</span>
-                    </div>
-                    <div class="accordion-content" id="accContentProgramming" role="region" aria-labelledby="accProgramming">
-                        <ul class="skills-list">
-                            <li><strong>Python:</strong> Pytest, Flask, aiogram. Глубоко работаю с API LLM (OpenAI, Google GenAI).</li>
-                            <li><strong>PHP:</strong> Laravel.</li>
-                            <li><strong>SQL:</strong> Проектирую реляционные схемы со связями 1:N, N:N и полиморфными, внешними ключами и каскадным удалением (Eloquent-миграции). SQLite, MySQL, PostgreSQL — в основном через ORM; рукописные запросы: CRUD, агрегация (GROUP BY, HAVING). Оконные функции, CTE и представления не использую.</li>
-                            <li><strong>База:</strong> Понимание принципов SOLID и DRY.</li>
-                        </ul>
-                    </div>
+            <!-- Аккордеон 2: Инфраструктура & Сети -->
+            <div class="accordion-item" id="accInfrastructure">
+                <div class="accordion-header" tabindex="0" role="button" aria-expanded="false" aria-controls="accContentInfrastructure">
+                    <span class="accordion-toggle-btn">+</span>
+                    <span class="accordion-title">Инфраструктура & Сети</span>
                 </div>
-
-                <!-- Аккордеон 2: Инфраструктура & Сети -->
-                <div class="accordion-item" id="accInfrastructure">
-                    <div class="accordion-header" tabindex="0" role="button" aria-expanded="false" aria-controls="accContentInfrastructure">
-                        <span class="accordion-toggle-btn">+</span>
-                        <span class="accordion-title">Инфраструктура & Сети</span>
-                    </div>
-                    <div class="accordion-content" id="accContentInfrastructure" role="region" aria-labelledby="accInfrastructure">
-                        <ul class="skills-list">
-                            <li><strong>Cisco:</strong> VLAN, Inter-VLAN routing, ACL, STP, DHCP, IPv4/6.</li>
-                            <li><strong>Основы CI/CD.</strong></li>
-                            <li><strong>Веб-серверы:</strong> Nginx.</li>
-                            <li><strong>Прокси-протоколы</strong> (Xray/VLESS).</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Аккордеон 3: Подход к работе -->
-                <div class="accordion-item" id="accApproach">
-                    <div class="accordion-header" tabindex="0" role="button" aria-expanded="false" aria-controls="accContentApproach">
-                        <span class="accordion-toggle-btn">+</span>
-                        <span class="accordion-title">Подход к работе</span>
-                    </div>
-                    <div class="accordion-content" id="accContentApproach" role="region" aria-labelledby="accApproach">
-                        <ul class="skills-list">
-                            <li><strong>Анализ кода:</strong> Часто читаю исходники библиотек (type hints дают больше информации, чем официальная документация).</li>
-                            <li><strong>Английский:</strong> На уровне чтения технической документации.</li>
-                        </ul>
-                    </div>
+                <div class="accordion-content" id="accContentInfrastructure" role="region" aria-labelledby="accInfrastructure">
+                    <ul class="skills-list">
+                        <li><strong>Cisco:</strong> VLAN, Inter-VLAN routing, ACL, STP, DHCP, IPv4/6.</li>
+                        <li><strong>Основы CI/CD.</strong></li>
+                        <li><strong>Веб-серверы:</strong> Nginx.</li>
+                        <li><strong>Прокси-протоколы</strong> (Xray/VLESS).</li>
+                    </ul>
                 </div>
             </div>
-        </section>
 
-        <!-- Секция: Проекты -->
-        <section class="resume-section" id="projects">
-            <div class="explorer-window">
-                <!-- Заголовок окна проводника -->
-                <div class="explorer-titlebar">
-                    <span class="explorer-title">Exploring: Projects (C:/Users/kamil/Projects)</span>
-                    <div class="explorer-controls">
-                        <button class="win-btn btn-minimize" aria-label="Свернуть"><span class="icon-min">_</span></button>
-                        <button class="win-btn btn-maximize" aria-label="Развернуть"><span class="icon-max">□</span></button>
-                        <button class="win-btn btn-close" aria-label="Закрыть"><span class="icon-close">✕</span></button>
-                    </div>
+            <!-- Аккордеон 3: Подход к работе -->
+            <div class="accordion-item" id="accApproach">
+                <div class="accordion-header" tabindex="0" role="button" aria-expanded="false" aria-controls="accContentApproach">
+                    <span class="accordion-toggle-btn">+</span>
+                    <span class="accordion-title">Подход к работе</span>
                 </div>
-                <!-- Меню-бар проводника -->
-                <div class="explorer-menubar">
-                    <span class="menubar-item">File</span>
-                    <span class="menubar-item">Edit</span>
-                    <span class="menubar-item">View</span>
-                    <span class="menubar-item">Tools</span>
-                    <span class="menubar-item">Help</span>
-                </div>
-                <!-- Адресная строка проводника (ссылка на репозиторий GitHub) -->
-                <div class="explorer-addressbar">
-                    <span class="address-label">Адрес</span>
-                    <div class="address-field">
-                        <a class="address-link" id="addressLink" href="#" target="_blank" rel="noopener noreferrer" title="Открыть репозиторий на GitHub">—</a>
-                    </div>
-                </div>
-                <!-- Рабочая область проводника (две колонки) -->
-                <div class="explorer-body">
-                    <!-- Левая колонка: Дерево папок -->
-                    <div class="explorer-sidebar">
-                        <div class="explorer-tree">
-                            <ul class="tree-root">
-                                <li class="tree-item branch expanded" id="nodeComputer">
-                                    <div class="tree-row">
-                                        <button class="tree-toggle" aria-label="Развернуть/Свернуть">-</button>
-                                        <img class="tree-icon" src="{{ url_for('static', filename='images/icons/w2k-computer.ico') }}" alt="Компьютер">
-                                        <span class="tree-label">Kamil-PC</span>
-                                    </div>
-                                    <ul class="tree-children">
-                                        <li class="tree-item branch expanded" id="nodeC">
-                                            <div class="tree-row">
-                                                <button class="tree-toggle" aria-label="Развернуть/Свернуть">-</button>
-                                                <img class="tree-icon" src="{{ url_for('static', filename='images/icons/w2k_hard_drive.ico') }}" alt="Диск C">
-                                                <span class="tree-label">C:</span>
-                                            </div>
-                                            <ul class="tree-children">
-                                                <li class="tree-item branch expanded" id="nodeUsers">
-                                                    <div class="tree-row">
-                                                        <button class="tree-toggle" aria-label="Развернуть/Свернуть">-</button>
-                                                        <img class="tree-icon" src="{{ url_for('static', filename='images/icons/w2k_closed_folder.ico') }}" alt="Папка">
-                                                        <span class="tree-label">Users</span>
-                                                    </div>
-                                                    <ul class="tree-children">
-                                                        <li class="tree-item branch expanded" id="nodeKamilUser">
-                                                            <div class="tree-row">
-                                                                <button class="tree-toggle" aria-label="Развернуть/Свернуть">-</button>
-                                                                <img class="tree-icon" src="{{ url_for('static', filename='images/icons/w2k_closed_folder.ico') }}" alt="Папка">
-                                                                <span class="tree-label">kamil</span>
-                                                            </div>
-                                                            <ul class="tree-children">
-                                                                <!-- Проект 1 (выбран по умолчанию) -->
-                                                                <li class="tree-item leaf selected" id="projectAiChat" data-project="AI_chat" tabindex="0" role="button" aria-label="Проект AI_chat">
-                                                                    <div class="tree-row">
-                                                                        <span class="tree-spacer"></span>
-                                                                        <img class="tree-icon" src="{{ url_for('static', filename='images/icons/w2k_closed_folder.ico') }}" alt="Проект">
-                                                                        <span class="tree-label">AI_chat</span>
-                                                                    </div>
-                                                                </li>
-                                                                <!-- Проект 2 -->
-                                                                <li class="tree-item leaf" id="projectMyWebsite" data-project="my-website" tabindex="0" role="button" aria-label="Проект my-website">
-                                                                    <div class="tree-row">
-                                                                        <span class="tree-spacer"></span>
-                                                                        <img class="tree-icon" src="{{ url_for('static', filename='images/icons/w2k_closed_folder.ico') }}" alt="Проект">
-                                                                        <span class="tree-label">my-website</span>
-                                                                    </div>
-                                                                </li>
-                                                                <!-- Проект 3 -->
-                                                                <li class="tree-item leaf" id="projectDnd" data-project="project-dnd" tabindex="0" role="button" aria-label="Проект project-dnd">
-                                                                    <div class="tree-row">
-                                                                        <span class="tree-spacer"></span>
-                                                                        <img class="tree-icon" src="{{ url_for('static', filename='images/icons/w2k_closed_folder.ico') }}" alt="Проект">
-                                                                        <span class="tree-label">project-dnd</span>
-                                                                    </div>
-                                                                </li>
-                                                            </ul>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- Правая колонка: Просмотр README.md -->
-                    <div class="explorer-content">
-                        <div class="explorer-scroll"><!-- Скроллится только контент, рамка/тень панели неподвижны -->
-                            <div class="markdown-body" id="readmeRenderer">
-                                <!-- Сюда будет рендериться README.md -->
-                            </div>
-                        </div>
-                    </div>
+                <div class="accordion-content" id="accContentApproach" role="region" aria-labelledby="accApproach">
+                    <ul class="skills-list">
+                        <li><strong>Анализ кода:</strong> Часто читаю исходники библиотек (type hints дают больше информации, чем официальная документация).</li>
+                        <li><strong>Английский:</strong> На уровне чтения технической документации.</li>
+                    </ul>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Секция: Интересное -->
-        <section class="resume-section" id="interests">
-            <div class="display-window">
-                <!-- Заголовок окна Display Properties -->
-                <div class="display-titlebar">
-                    <div class="display-title-left">
-                        <img class="display-title-icon" src="{{ url_for('static', filename='images/icons/w2k-computer.ico') }}" alt="Экран">
-                        <span class="display-title">Свойства: Экран</span>
-                    </div>
-                    <div class="display-controls">
-                        <button class="win-btn btn-minimize" aria-label="Свернуть"><span class="icon-min">_</span></button>
-                        <button class="win-btn btn-maximize" aria-label="Развернуть"><span class="icon-max">□</span></button>
-                        <button class="win-btn btn-close" id="displayClose" aria-label="Закрыть"><span class="icon-close">✕</span></button>
-                    </div>
+    <!-- Секция: Проекты -->
+    <section class="resume-section" id="projects">
+        <div class="explorer-window">
+            <!-- Заголовок окна проводника -->
+            <div class="explorer-titlebar">
+                <span class="explorer-title">Exploring: Projects (C:/Users/kamil/Projects)</span>
+                <div class="explorer-controls">
+                    <button class="win-btn btn-minimize" aria-label="Свернуть"><span class="icon-min">_</span></button>
+                    <button class="win-btn btn-maximize" aria-label="Развернуть"><span class="icon-max">□</span></button>
+                    <button class="win-btn btn-close" aria-label="Закрыть"><span class="icon-close">✕</span></button>
                 </div>
-                
-                <!-- Вкладки (Tabs) -->
-                <div class="display-tabs" role="tablist">
-                    <button class="display-tab active" id="tabSport" role="tab" aria-selected="true" data-tab="sport" tabindex="0">Спорт</button>
-                    <button class="display-tab" id="tabNetworks" role="tab" aria-selected="false" data-tab="networks" tabindex="-1">Сети и ПК</button>
-                    <button class="display-tab" id="tabMusic" role="tab" aria-selected="false" data-tab="music" tabindex="-1">Музыка</button>
-                    <button class="display-tab" id="tabMl" role="tab" aria-selected="false" data-tab="ml" tabindex="-1">ML & DL</button>
+            </div>
+            <!-- Меню-бар проводника -->
+            <div class="explorer-menubar">
+                <span class="menubar-item">File</span>
+                <span class="menubar-item">Edit</span>
+                <span class="menubar-item">View</span>
+                <span class="menubar-item">Tools</span>
+                <span class="menubar-item">Help</span>
+            </div>
+            <!-- Адресная строка проводника (ссылка на репозиторий GitHub) -->
+            <div class="explorer-addressbar">
+                <span class="address-label">Адрес</span>
+                <div class="address-field">
+                    <a class="address-link" id="addressLink" href="#" target="_blank" rel="noopener noreferrer" title="Открыть репозиторий на GitHub">—</a>
                 </div>
-                
-                <!-- Тело вкладки (Рабочая область) -->
-                <div class="display-tab-body" role="tabpanel">
-                    <div class="display-tab-layout">
-                        <!-- Левая панель: CRT Монитор на CSS -->
-                        <div class="crt-monitor-wrapper">
-                            <div class="crt-monitor">
-                                <div class="crt-bezel">
-                                    <div class="crt-screen-container">
-                                        <div class="crt-screen" id="crtScreen">
-                                            <div class="crt-scanlines"></div>
-                                            <div class="crt-flicker"></div>
-                                            <pre class="crt-ascii" id="crtAscii"></pre>
+            </div>
+            <!-- Рабочая область проводника (две колонки) -->
+            <div class="explorer-body">
+                <!-- Левая колонка: Дерево папок -->
+                <div class="explorer-sidebar">
+                    <div class="explorer-tree">
+                        <ul class="tree-root">
+                            <li class="tree-item branch expanded" id="nodeComputer">
+                                <div class="tree-row">
+                                    <button class="tree-toggle" aria-label="Развернуть/Свернуть">-</button>
+                                    <img class="tree-icon" src="{{ url_for('static', filename='images/icons/w2k-computer.ico') }}" alt="Компьютер">
+                                    <span class="tree-label">Kamil-PC</span>
+                                </div>
+                                <ul class="tree-children">
+                                    <li class="tree-item branch expanded" id="nodeC">
+                                        <div class="tree-row">
+                                            <button class="tree-toggle" aria-label="Развернуть/Свернуть">-</button>
+                                            <img class="tree-icon" src="{{ url_for('static', filename='images/icons/w2k_hard_drive.ico') }}" alt="Диск C">
+                                            <span class="tree-label">C:</span>
                                         </div>
-                                    </div>
-                                    <div class="crt-controls">
-                                        <span class="crt-led green" id="crtLed"></span>
-                                        <span class="crt-dial"></span>
-                                        <span class="crt-dial"></span>
-                                        <span class="crt-power-btn" id="crtPowerBtn" role="button" aria-label="Вкл/Выкл монитор"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="crt-stand"></div>
-                            <div class="crt-base"></div>
-                        </div>
-                        
-                        <!-- Правая панель: Описание -->
-                        <div class="display-info-block">
-                            <fieldset class="display-fieldset">
-                                <legend class="display-legend" id="infoTitle">Спорт</legend>
-                                <div class="display-fieldset-content">
-                                    <p class="display-info-text" id="infoText">Загрузка...</p>
-                                </div>
-                            </fieldset>
-                        </div>
+                                        <ul class="tree-children">
+                                            <li class="tree-item branch expanded" id="nodeUsers">
+                                                <div class="tree-row">
+                                                    <button class="tree-toggle" aria-label="Развернуть/Свернуть">-</button>
+                                                    <img class="tree-icon" src="{{ url_for('static', filename='images/icons/w2k_closed_folder.ico') }}" alt="Папка">
+                                                    <span class="tree-label">Users</span>
+                                                </div>
+                                                <ul class="tree-children">
+                                                    <li class="tree-item branch expanded" id="nodeKamilUser">
+                                                        <div class="tree-row">
+                                                            <button class="tree-toggle" aria-label="Развернуть/Свернуть">-</button>
+                                                            <img class="tree-icon" src="{{ url_for('static', filename='images/icons/w2k_closed_folder.ico') }}" alt="Папка">
+                                                            <span class="tree-label">kamil</span>
+                                                        </div>
+                                                        <ul class="tree-children">
+                                                            <!-- Проект 1 (выбран по умолчанию) -->
+                                                            <li class="tree-item leaf selected" id="projectAiChat" data-project="AI_chat" tabindex="0" role="button" aria-label="Проект AI_chat">
+                                                                <div class="tree-row">
+                                                                    <span class="tree-spacer"></span>
+                                                                    <img class="tree-icon" src="{{ url_for('static', filename='images/icons/w2k_closed_folder.ico') }}" alt="Проект">
+                                                                    <span class="tree-label">AI_chat</span>
+                                                                </div>
+                                                            </li>
+                                                            <!-- Проект 2 -->
+                                                            <li class="tree-item leaf" id="projectMyWebsite" data-project="my-website" tabindex="0" role="button" aria-label="Проект my-website">
+                                                                <div class="tree-row">
+                                                                    <span class="tree-spacer"></span>
+                                                                    <img class="tree-icon" src="{{ url_for('static', filename='images/icons/w2k_closed_folder.ico') }}" alt="Проект">
+                                                                    <span class="tree-label">my-website</span>
+                                                                </div>
+                                                            </li>
+                                                            <!-- Проект 3 -->
+                                                            <li class="tree-item leaf" id="projectDnd" data-project="project-dnd" tabindex="0" role="button" aria-label="Проект project-dnd">
+                                                                <div class="tree-row">
+                                                                    <span class="tree-spacer"></span>
+                                                                    <img class="tree-icon" src="{{ url_for('static', filename='images/icons/w2k_closed_folder.ico') }}" alt="Проект">
+                                                                    <span class="tree-label">project-dnd</span>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
                     </div>
                 </div>
-                
-                <!-- Кнопки действий внизу -->
-                <div class="display-actions">
-                    <button class="display-action-btn" id="displayOk">ОК</button>
-                    <button class="display-action-btn" id="displayCancel">Отмена</button>
-                    <button class="display-action-btn" id="displayApply" disabled>Применить</button>
+                <!-- Правая колонка: Просмотр README.md -->
+                <div class="explorer-content">
+                    <div class="explorer-scroll"><!-- Скроллится только контент, рамка/тень панели неподвижны -->
+                        <div class="markdown-body" id="readmeRenderer">
+                            <!-- Сюда будет рендериться README.md -->
+                        </div>
+                    </div>
                 </div>
             </div>
-        </section>
-    </main>
-
-    <!-- Боковое выезжающее меню "Содержание" (справа по центру) -->
-    <div class="sidebar-menu collapsed" id="sidebarMenu">
-        <!-- Выпирающий язычок со стрелкой -->
-        <button class="menu-toggle" id="menuToggle" aria-label="Свернуть/Развернуть меню">
-            <span class="arrow-icon"></span>
-        </button>
-        
-        <!-- Тело меню с пунктами -->
-        <div class="menu-content">
-            <ul class="menu-list">
-                <!-- Активный пункт по умолчанию -->
-                <li class="menu-item active" data-target="hero">
-                    <div class="marker-container">
-                        <span class="marker-dot dot-top"></span>
-                        <span class="marker-dot dot-bottom"></span>
-                    </div>
-                    <span class="item-text">Шапка</span>
-                </li>
-                <!-- Неактивные пункты -->
-                <li class="menu-item" data-target="about">
-                    <div class="marker-container">
-                        <span class="marker-dot dot-top"></span>
-                        <span class="marker-dot dot-bottom"></span>
-                    </div>
-                    <span class="item-text">Обо мне</span>
-                </li>
-                <li class="menu-item" data-target="skills">
-                    <div class="marker-container">
-                        <span class="marker-dot dot-top"></span>
-                        <span class="marker-dot dot-bottom"></span>
-                    </div>
-                    <span class="item-text">Что я умею</span>
-                </li>
-                <li class="menu-item" data-target="projects">
-                    <div class="marker-container">
-                        <span class="marker-dot dot-top"></span>
-                        <span class="marker-dot dot-bottom"></span>
-                    </div>
-                    <span class="item-text">Проекты</span>
-                </li>
-                <li class="menu-item" data-target="interests">
-                    <div class="marker-container">
-                        <span class="marker-dot dot-top"></span>
-                        <span class="marker-dot dot-bottom"></span>
-                    </div>
-                    <span class="item-text">Интересное</span>
-                </li>
-            </ul>
         </div>
-    </div>
+    </section>
 
-    <!-- Подключаем JavaScript-файл -->
-    <script src="{{ url_for('static', filename='js/main.js') }}" defer></script>
-</body>
-</html>
+    <!-- Секция: Интересное -->
+    <section class="resume-section" id="interests">
+        <div class="display-window">
+            <!-- Заголовок окна Display Properties -->
+            <div class="display-titlebar">
+                <div class="display-title-left">
+                    <img class="display-title-icon" src="{{ url_for('static', filename='images/icons/w2k-computer.ico') }}" alt="Экран">
+                    <span class="display-title">Свойства: Экран</span>
+                </div>
+                <div class="display-controls">
+                    <button class="win-btn btn-minimize" aria-label="Свернуть"><span class="icon-min">_</span></button>
+                    <button class="win-btn btn-maximize" aria-label="Развернуть"><span class="icon-max">□</span></button>
+                    <button class="win-btn btn-close" id="displayClose" aria-label="Закрыть"><span class="icon-close">✕</span></button>
+                </div>
+            </div>
+
+            <!-- Вкладки (Tabs) -->
+            <div class="display-tabs" role="tablist">
+                <button class="display-tab active" id="tabSport" role="tab" aria-selected="true" data-tab="sport" tabindex="0">Спорт</button>
+                <button class="display-tab" id="tabNetworks" role="tab" aria-selected="false" data-tab="networks" tabindex="-1">Сети и ПК</button>
+                <button class="display-tab" id="tabMusic" role="tab" aria-selected="false" data-tab="music" tabindex="-1">Музыка</button>
+                <button class="display-tab" id="tabMl" role="tab" aria-selected="false" data-tab="ml" tabindex="-1">ML & DL</button>
+            </div>
+
+            <!-- Тело вкладки (Рабочая область) -->
+            <div class="display-tab-body" role="tabpanel">
+                <div class="display-tab-layout">
+                    <!-- Левая панель: CRT Монитор на CSS -->
+                    <div class="crt-monitor-wrapper">
+                        <div class="crt-monitor">
+                            <div class="crt-bezel">
+                                <div class="crt-screen-container">
+                                    <div class="crt-screen" id="crtScreen">
+                                        <div class="crt-scanlines"></div>
+                                        <div class="crt-flicker"></div>
+                                        <pre class="crt-ascii" id="crtAscii"></pre>
+                                    </div>
+                                </div>
+                                <div class="crt-controls">
+                                    <span class="crt-led green" id="crtLed"></span>
+                                    <span class="crt-dial"></span>
+                                    <span class="crt-dial"></span>
+                                    <span class="crt-power-btn" id="crtPowerBtn" role="button" aria-label="Вкл/Выкл монитор"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="crt-stand"></div>
+                        <div class="crt-base"></div>
+                    </div>
+
+                    <!-- Правая панель: Описание -->
+                    <div class="display-info-block">
+                        <fieldset class="display-fieldset">
+                            <legend class="display-legend" id="infoTitle">Спорт</legend>
+                            <div class="display-fieldset-content">
+                                <p class="display-info-text" id="infoText">Загрузка...</p>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Кнопки действий внизу -->
+            <div class="display-actions">
+                <button class="display-action-btn" id="displayOk">ОК</button>
+                <button class="display-action-btn" id="displayCancel">Отмена</button>
+                <button class="display-action-btn" id="displayApply" disabled>Применить</button>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block body_extra %}
+    {% include '_sidebar_menu.html' %}
+{% endblock %}

@@ -1,0 +1,31 @@
+{# Коллекция переиспользуемых макросов вёрстки. #}
+
+{# =============================================================================
+   retro_button
+   Ретро-кнопка: задний слой (уголки + плюсик) + передний слой с тремя
+   состояниями текста (idle / hover / selected). Используется в шапке и inline.
+
+   Параметры:
+     href      — URL ссылки (обязательный)
+     label     — видимый текст кнопки (обязательный)
+     id        — id элемента (опц., по умолчанию не задан)
+     active    — True → кнопка в состоянии .selected (опц.)
+     classes   — доп. классы через пробел, напр. "nav-btn inline-btn" (опц.)
+     aria      — значение aria-label (опц., по умолчанию равен label)
+#}
+{% macro retro_button(href, label, id='', active=false, classes='', aria='') -%}
+{%- set btn_classes = ['retro-btn'] + classes.split() + (['selected'] if active else []) -%}
+<a href="{{ href }}" class="{{ btn_classes | join(' ') }}"{% if id %} id="{{ id }}"{% endif %} aria-label="{{ aria or label }}">
+    <div class="btn-shadow">
+        <div class="corner corner-tl"></div>
+        <div class="corner corner-br"></div>
+        <div class="plus-line plus-line-v"></div>
+        <div class="plus-line plus-line-h"></div>
+    </div>
+    <div class="btn-body">
+        <span class="btn-text text-idle">{{ label }}</span>
+        <span class="btn-text text-hover">{{ label }}</span>
+        <span class="btn-text text-selected">{{ label }}</span>
+    </div>
+</a>
+{%- endmacro %}

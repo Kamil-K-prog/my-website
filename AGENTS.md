@@ -6,11 +6,18 @@
 - **Стилизация**: Чистый CSS без фреймворков
 
 ## Структура проекта
-- `/templates/` — HTML-шаблоны
+- `/templates/` — HTML-шаблоны Jinja2
+  - `base.html` — базовый скелет всех страниц (`<!DOCTYPE>`, `<head>`, шапка, `<script>`). Блоки: `title`, `head`, `main_class`, `content`, `body_extra`
+  - `macros.html` — коллекция переиспользуемых макросов (макрос `retro_button` — многослойная ретро-кнопка в одном вызове)
+  - `_header.html` — partial шапки сайта (логотип + 2 nav-кнопки через `retro_button`), активность берёт из контекста `active`
+  - `_sidebar_menu.html` — partial бокового меню «Содержание» (5 пунктов генерируются циклом `{% for %}`)
+  - `index.html` — Главная (`{% extends 'base.html' %}`, окно «В разработке»)
+  - `resume.html` — Резюме (`{% extends 'base.html' %}`, 5 секций + include сайдбара)
 - `/static/`
   - `/css/` — файлы стилей (например, `style.css`)
   - `/js/` — скрипты (например, `main.js`)
-- `/References/` — макеты и референсы (кнопки, шапка, контент)
+  - `/images/` — логотип (`logo.svg`) и `/images/icons/` — ретро-иконки
+- `/References/` — макеты и референсы (кнопки, шапка, контент; устаревшие версии, не источник истины)
 - `app.py` — главный файл Flask-приложения
 - `requirements.txt` — зависимости проекта
 - `AGENTS.md` — этот файл (внешняя память)
@@ -38,8 +45,18 @@
 5. **Многостраничность и навигация**:
    - Маршрутизация на бэкенде: Flask обрабатывает роуты `/` (Главная страница) и `/resume` (Резюме).
    - Навигационные элементы в шапке переопределены как теги `<a>` с прямыми ссылками на соответствующие разделы.
+   - **Активность nav-кнопки управляется бэкендом**: `render_template(..., active='home'|'resume')` передаёт в контекст переменную `active`; partial шапки `_header.html` ставит класс `.selected` на нужную кнопку через параметр `active` макроса `retro_button` (раньше `selected` был захардкожен прямо в HTML каждого шаблона).
    - Разделение функционала: боковое меню «Содержание» отображается только на странице Резюме.
    - Плавная прокрутка: на странице Резюме клики на пункты бокового меню плавно прокручивают страницу к секциям резюме с помощью связки `data-target` атрибутов и JS-метода `scrollIntoView()`.
+6. **Шаблонизация Jinja2 (устранение дублирования HTML)**:
+   - Вёрстка типовых элементов вынесена из `index.html`/`resume.html` в переиспользуемые файлы: `base.html` (наследование), `macros.html` (макрос `retro_button`), `_header.html` и `_sidebar_menu.html` (partial'ы через `{% include %}`).
+   - **Макрос `retro_button(href, label, id, active, classes, aria)`**: инкапсулирует многослойную структуру ретро-кнопки (задний слой `.btn-shadow` с уголками и плюсиком + передний `.btn-body` с тремя текстовыми span'ами idle/hover/selected) в одном вызове. Классы собираются через `['retro-btn'] + classes.split() + (['selected'] if active)` и склеиваются `join(' ')` — это исключает trailing-space в `class` при пустых/неактивных параметрах.
+   - **`_header.html`**: рендерит логотип и обе nav-кнопки (`Главная`/`Резюме`) через макрос; активность берёт из контекста `active`. Подключается в `base.html` через `{% include %}`, поэтому шапка едина для всех страниц.
+   - **`_sidebar_menu.html`**: 5 пунктов меню генерируются циклом `{% for %}` из списка `(target, text, is_first)` — разница только `data-target` и текст. Класс `collapsed` и активный пункт «Шапка» проставлены по умолчанию. Include'ится в `resume.html` через блок `body_extra`.
+   - **`base.html`**: общий скелет (`<!DOCTYPE>`, `<head>` со шрифтом Inter + `style.css`, шапка, `<script src=main.js defer>`). Блоки: `title` (заголовок страницы), `head` (доп. теги — напр. `marked.js` в resume), `main_class` (доп. класс `<main>` — напр. `resume-layout`), `content` (основной контент), `body_extra` (доп. элементы перед `</body>` — сайдбар).
+   - **Сокращение**: `index.html` 95→27 строк, `resume.html` 395→~290 строк (контент секций сохранён 1:1, шапка/сайдбар/head-теги ушли в base/include).
+   - CSS и JS не дублировались изначально (уже в одном `style.css`/`main.js`) — шаблонизация затронула только HTML.
+   - `References/components/` не тронут — там устаревшие макеты кнопки/меню, источник истины — продакшен-шаблоны.
 
 ## Текущий прогресс
 - [x] Шаг 1: Реализована обычная ретро-кнопка (из папки `Normal`). Настроены все анимации (смыкание рамки из уголков и плюсика на ховере, сдвиг цианового слоя на клике с сохранением серой тени и рамки под ней). Кнопка перенесена в левый верхний угол.
@@ -148,5 +165,14 @@
   - **CSS (`.logo-img`)**: новое правило `width: 100%; height: 100%; object-fit: cover; display: block` — фото заполняет круг без искажения пропорций (`cover` вписывает квадрат 1024×1024 в круглый контейнер любого размера). Масштабирование при hover/адаптиве НЕ требует отдельных override: img следует за `.logo-circle` через `100%`, какой бы размер ни задал брейкпоинт/hover (46→80 десктоп, 38→65 на 1440, 32 на 768).
   - **Удалено**: `.logo-text` (базовое + `:hover`) и мёртвые `font-size` override для `.logo-text` в `@media 1440` и `@media 768` — текстового плейсхолдера больше нет, эти правила были бы мёртвым кодом. Полная проверка: `grep logo-text` по проекту → 0 совпадений.
   - **Проверено (браузер, http://127.0.0.1:5000/ и /resume)**: img грузится (`naturalWidth: 1024`, `complete: true`, `src: .../static/images/logo.jpg`, HTTP 200). Геометрия покоя (брейкпоинт 1440): circle 38×38 border-box, img 36×36 content-box = circle − 2px border — `imgAlways2pxLessThanCircle: true`, `ratioMaintained: true`. Клипинг: `border-radius: 50%` + `overflow: hidden` + `object-fit: cover`. CSS-каскад hover подтверждён напрямую: `.site-header:hover .logo-circle` → 65px (1440 media-block, активен), 80px (десктоп base). Логотип виден на обеих страницах (`image "Логотип"` в accessibility-tree). JS-ошибок 0.
+- [x] Шаг 18: Шаблонизация Jinja2 — вынесение типовых элементов вёрстки (шапка, ретро-кнопка, боковое меню) в отдельные файлы для устранения дублирования HTML.
+  - **Контекст**: шапка сайта целиком дублировалась в `index.html` и `resume.html`; многослойная структура ретро-кнопки (задний слой с уголками/плюсиком + передний слой с тремя текстовыми span'ами) копипастилась 5 раз (2 nav × 2 страницы + 1 inline на Главной); боковое меню (50 строк) лежало inline в `resume.html`. CSS (`style.css`) и JS (`main.js`) уже были в одном файле — дублировался только HTML.
+  - **Создано 4 файла**: `templates/base.html` (базовый скелет, наследование `{% extends %}`), `templates/macros.html` (макрос `retro_button`), `templates/_header.html` (partial шапки), `templates/_sidebar_menu.html` (partial сайдбара). Подробности архитектуры — в техрешении №6 выше.
+  - **`app.py`**: `render_template('index.html')` → `render_template('index.html', active='home')`, `resume` — `active='resume'`. Переменная `active` течёт в контекст → `_header.html` ставит `.selected` на нужную nav-кнопку (раньше класс был захардкожен в HTML).
+  - **Макрос `retro_button`**: классы собираются списком `['retro-btn'] + classes.split() + (['selected'] if active else [])` и склеиваются `join(' ')` — устранён trailing-space в `class`, который давала первоначальная строковая интерполяция `{{ classes }} {{ 'selected' if active else '' }}` (при `active=false` оставался пробел перед закрывающей кавычкой).
+  - **Сайдбар**: 5 пунктов генерируются циклом `{% for target, text, is_first in items %}` из списка; `collapsed` и активный «Шапка» — по умолчанию. Include'ится в `resume.html` через блок `body_extra` (на Главной сайдбара нет).
+  - **Сокращение объёма**: `index.html` 95→27 строк (−71%), `resume.html` 395→~290 строк (−27%). Контент всех 5 секций резюме сохранён 1:1 — изменена только обвязка (шапка/head/сайдбар ушли в base/include).
+  - **`__pycache__/` убран из git**: закоммиченный `app.cpython-314.pyc` (артефакт запущенного Flask) удалён из индекса через `git rm --cached`; в `.gitignore` добавлены `__pycache__/` и `*.pyc`.
+  - **Проверено (браузер, http://127.0.0.1:5000/ и /resume)**: обе страницы HTTP 200, 0 JS-ошибок в консоли. Рендер nav-кнопок: на `/` → `btnHome` в `selected`, `btnResume` без; на `/resume` → `btnHome` без, `btnResume` в `selected`. Inline-кнопка на Главной — `class="retro-btn inline-btn"` (без `selected`, без trailing-space). Сайдбар: клик по язычку снимает `collapsed` (`true→false`), клик по «Обо мне» переключает active (`hero→about`). README AI_chat грузится с GitHub (H1 «Проект "AI чат"» в DOM). Структура кнопок в accessibility-tree: по 3 текстовых span (idle/hover/selected) в каждой nav-кнопке — макрос отрабатывает корректно. Trailing-space regression check: 0 на обеих страницах.
 
 

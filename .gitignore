@@ -1,2 +1,4 @@
 /.venv
 /References
+__pycache__/
+*.pyc

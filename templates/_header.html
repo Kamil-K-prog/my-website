@@ -1,0 +1,18 @@
+{# Partial: шапка сайта (логотип + навигация).
+   Ожидает из контекста: active — 'home' | 'resume' (какая кнопка selected). #}
+{% from 'macros.html' import retro_button %}
+
+<header class="site-header" id="siteHeader">
+    <!-- Блок логотипа (слева) -->
+    <div class="logo-block">
+        <div class="logo-circle">
+            <img class="logo-img" src="{{ url_for('static', filename='images/logo.svg') }}" alt="Логотип">
+        </div>
+    </div>
+
+    <!-- Навигация (справа от логотипа) -->
+    <nav class="header-nav">
+        {{ retro_button('/', 'Главная', id='btnHome', active=(active == 'home'), classes='nav-btn', aria='Раздел Главная') }}
+        {{ retro_button('/resume', 'Резюме', id='btnResume', active=(active == 'resume'), classes='nav-btn', aria='Раздел Резюме') }}
+    </nav>
+</header>

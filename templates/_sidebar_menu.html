@@ -1,0 +1,31 @@
+{# Partial: боковое выезжающее меню "Содержание" (только страница Резюме).
+   Пункты меню: target (id секции для scrollIntoView) + текст. #}
+
+<div class="sidebar-menu collapsed" id="sidebarMenu">
+    <!-- Выпирающий язычок со стрелкой -->
+    <button class="menu-toggle" id="menuToggle" aria-label="Свернуть/Развернуть меню">
+        <span class="arrow-icon"></span>
+    </button>
+
+    <!-- Тело меню с пунктами -->
+    <div class="menu-content">
+        <ul class="menu-list">
+            {% set items = [
+                ('hero', 'Шапка', true),
+                ('about', 'Обо мне', false),
+                ('skills', 'Что я умею', false),
+                ('projects', 'Проекты', false),
+                ('interests', 'Интересное', false)
+            ] %}
+            {% for target, text, is_first in items %}
+            <li class="menu-item {{ 'active' if is_first else '' }}" data-target="{{ target }}">
+                <div class="marker-container">
+                    <span class="marker-dot dot-top"></span>
+                    <span class="marker-dot dot-bottom"></span>
+                </div>
+                <span class="item-text">{{ text }}</span>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>

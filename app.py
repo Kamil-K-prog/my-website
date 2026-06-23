@@ -4,11 +4,11 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('index.html', active='home')
 
 @app.route('/resume')
 def resume():
-    return render_template('resume.html')
+    return render_template('resume.html', active='resume')
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000, host='0.0.0.0')
