@@ -60,6 +60,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden; /* Квадратное img обрезается по кругу border-radius */
     transition: width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
                 height 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
                 background-color 0.25s ease;
@@ -74,19 +75,12 @@ body {
     height: 80px;
 }
 
-/* Текст логотипа */
-.logo-text {
-    font-size: 12px;
-    font-weight: 700;
-    color: #000000;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    user-select: none;
-    transition: font-size 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-.site-header:hover .logo-text {
-    font-size: 18px; /* Увеличивается пропорционально кругу */
+/* Изображение логотипа — заполняет круг, масштабируется вместе с .logo-circle */
+.logo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Квадратное фото заполняет круг без искажений пропорций */
+    display: block;
 }
 
 /* Навигация (справа от логотипа) */
@@ -565,12 +559,6 @@ body {
         width: 65px;
         height: 65px;
     }
-    .logo-text {
-        font-size: 10px;
-    }
-    .site-header:hover .logo-text {
-        font-size: 15px;
-    }
     .header-nav {
         gap: 20px;
         padding-left: 20px;
@@ -646,12 +634,6 @@ body {
     .site-header:hover .logo-circle {
         width: 32px;
         height: 32px;
-    }
-    .logo-text {
-        font-size: 8px;
-    }
-    .site-header:hover .logo-text {
-        font-size: 8px;
     }
     .header-nav {
         gap: 15px;

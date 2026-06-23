@@ -19,7 +19,7 @@
         <!-- Блок логотипа (слева) -->
         <div class="logo-block">
             <div class="logo-circle">
-                <span class="logo-text">Лого</span>
+                <img class="logo-img" src="{{ url_for('static', filename='images/logo.svg') }}" alt="Логотип">
             </div>
         </div>
         
@@ -64,7 +64,7 @@
             <div class="hero-card">
                 <!-- Левая колонка: Плейсхолдер для фото -->
                 <div class="profile-photo-placeholder">
-                    <span>Фото</span>
+                    <span>Скоро здесь будет моё фото</span>
                 </div>
                 <!-- Правая колонка: Информация -->
                 <div class="profile-info">
@@ -194,28 +194,28 @@
                                 <li class="tree-item branch expanded" id="nodeComputer">
                                     <div class="tree-row">
                                         <button class="tree-toggle" aria-label="Развернуть/Свернуть">-</button>
-                                        <img class="tree-icon" src="{{ url_for('static', filename='icons/w2k-computer.ico') }}" alt="Компьютер">
+                                        <img class="tree-icon" src="{{ url_for('static', filename='images/icons/w2k-computer.ico') }}" alt="Компьютер">
                                         <span class="tree-label">Kamil-PC</span>
                                     </div>
                                     <ul class="tree-children">
                                         <li class="tree-item branch expanded" id="nodeC">
                                             <div class="tree-row">
                                                 <button class="tree-toggle" aria-label="Развернуть/Свернуть">-</button>
-                                                <img class="tree-icon" src="{{ url_for('static', filename='icons/w2k_hard_drive.ico') }}" alt="Диск C">
+                                                <img class="tree-icon" src="{{ url_for('static', filename='images/icons/w2k_hard_drive.ico') }}" alt="Диск C">
                                                 <span class="tree-label">C:</span>
                                             </div>
                                             <ul class="tree-children">
                                                 <li class="tree-item branch expanded" id="nodeUsers">
                                                     <div class="tree-row">
                                                         <button class="tree-toggle" aria-label="Развернуть/Свернуть">-</button>
-                                                        <img class="tree-icon" src="{{ url_for('static', filename='icons/w2k_closed_folder.ico') }}" alt="Папка">
+                                                        <img class="tree-icon" src="{{ url_for('static', filename='images/icons/w2k_closed_folder.ico') }}" alt="Папка">
                                                         <span class="tree-label">Users</span>
                                                     </div>
                                                     <ul class="tree-children">
                                                         <li class="tree-item branch expanded" id="nodeKamilUser">
                                                             <div class="tree-row">
                                                                 <button class="tree-toggle" aria-label="Развернуть/Свернуть">-</button>
-                                                                <img class="tree-icon" src="{{ url_for('static', filename='icons/w2k_closed_folder.ico') }}" alt="Папка">
+                                                                <img class="tree-icon" src="{{ url_for('static', filename='images/icons/w2k_closed_folder.ico') }}" alt="Папка">
                                                                 <span class="tree-label">kamil</span>
                                                             </div>
                                                             <ul class="tree-children">
@@ -223,7 +223,7 @@
                                                                 <li class="tree-item leaf selected" id="projectAiChat" data-project="AI_chat" tabindex="0" role="button" aria-label="Проект AI_chat">
                                                                     <div class="tree-row">
                                                                         <span class="tree-spacer"></span>
-                                                                        <img class="tree-icon" src="{{ url_for('static', filename='icons/w2k_closed_folder.ico') }}" alt="Проект">
+                                                                        <img class="tree-icon" src="{{ url_for('static', filename='images/icons/w2k_closed_folder.ico') }}" alt="Проект">
                                                                         <span class="tree-label">AI_chat</span>
                                                                     </div>
                                                                 </li>
@@ -231,7 +231,7 @@
                                                                 <li class="tree-item leaf" id="projectMyWebsite" data-project="my-website" tabindex="0" role="button" aria-label="Проект my-website">
                                                                     <div class="tree-row">
                                                                         <span class="tree-spacer"></span>
-                                                                        <img class="tree-icon" src="{{ url_for('static', filename='icons/w2k_closed_folder.ico') }}" alt="Проект">
+                                                                        <img class="tree-icon" src="{{ url_for('static', filename='images/icons/w2k_closed_folder.ico') }}" alt="Проект">
                                                                         <span class="tree-label">my-website</span>
                                                                     </div>
                                                                 </li>
@@ -239,7 +239,7 @@
                                                                 <li class="tree-item leaf" id="projectDnd" data-project="project-dnd" tabindex="0" role="button" aria-label="Проект project-dnd">
                                                                     <div class="tree-row">
                                                                         <span class="tree-spacer"></span>
-                                                                        <img class="tree-icon" src="{{ url_for('static', filename='icons/w2k_closed_folder.ico') }}" alt="Проект">
+                                                                        <img class="tree-icon" src="{{ url_for('static', filename='images/icons/w2k_closed_folder.ico') }}" alt="Проект">
                                                                         <span class="tree-label">project-dnd</span>
                                                                     </div>
                                                                 </li>
@@ -272,7 +272,7 @@
                 <!-- Заголовок окна Display Properties -->
                 <div class="display-titlebar">
                     <div class="display-title-left">
-                        <img class="display-title-icon" src="{{ url_for('static', filename='icons/w2k-computer.ico') }}" alt="Экран">
+                        <img class="display-title-icon" src="{{ url_for('static', filename='images/icons/w2k-computer.ico') }}" alt="Экран">
                         <span class="display-title">Свойства: Экран</span>
                     </div>
                     <div class="display-controls">
