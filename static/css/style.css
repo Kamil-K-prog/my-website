@@ -1,0 +1,2519 @@
+/* Сброс стилей и глобальные правила */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #f5f5f5;
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+}
+
+/* --- Шапка сайта --- */
+.site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px; /* Сжатая высота по умолчанию */
+    display: flex;
+    background-color: #ffffff;
+    border-bottom: 1px solid #000000;
+    z-index: 90;
+    transition: height 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Раскрытое состояние шапки при наведении */
+.site-header:hover {
+    height: 100px;
+}
+
+/* Блок логотипа (слева в шапке) */
+.logo-block {
+    width: 60px; /* По умолчанию совпадает с высотой шапки */
+    height: 100%;
+    background-color: #cecece;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-right: 1px solid #000000;
+    transition: width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.site-header:hover .logo-block {
+    width: 100px; /* Расширяется при ховере */
+}
+
+/* Круглый логотип внутри блока */
+.logo-circle {
+    width: 46px; /* Сжатый диаметр */
+    height: 46px;
+    border-radius: 50%;
+    background-color: #d9d9d9;
+    border: 1px solid #000000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                height 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                background-color 0.25s ease;
+}
+
+.logo-circle:hover {
+    background-color: #e5e5e5; /* Легкая ретро-подсветка при наведении именно на логотип */
+}
+
+.site-header:hover .logo-circle {
+    width: 80px; /* Увеличивается при ховере на шапку */
+    height: 80px;
+}
+
+/* Текст логотипа */
+.logo-text {
+    font-size: 12px;
+    font-weight: 700;
+    color: #000000;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    user-select: none;
+    transition: font-size 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.site-header:hover .logo-text {
+    font-size: 18px; /* Увеличивается пропорционально кругу */
+}
+
+/* Навигация (справа от логотипа) */
+.header-nav {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    padding-left: 30px;
+    flex-grow: 1;
+}
+
+/* --- Стили кнопок навигации внутри шапки (адаптированные размеры) --- */
+
+/* Базовое состояние (без ховера на шапке) */
+.header-nav .retro-btn {
+    width: 130px;
+    height: 36px;
+    transition: width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                height 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.header-nav .retro-btn .btn-body {
+    transition: background-color 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                transform 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.header-nav .retro-btn .btn-text {
+    font-size: 13px;
+    transition: font-size 0.3s ease, opacity 0.2s ease, transform 0.2s ease;
+}
+
+.header-nav .retro-btn:not(:hover):not(.selected) .corner {
+    width: 10px;
+    height: 10px;
+}
+
+.header-nav .retro-btn:not(:hover):not(.selected) .plus-line-v {
+    bottom: -10px;
+    height: 20px;
+}
+
+.header-nav .retro-btn:not(:hover):not(.selected) .plus-line-h {
+    left: -10px;
+    width: 20px;
+}
+
+.header-nav .retro-btn.selected .btn-body {
+    transform: translate(6px, -6px);
+}
+
+/* Раскрытое состояние (при ховере на шапку) */
+.site-header:hover .header-nav .retro-btn {
+    width: 160px;
+    height: 44px;
+}
+
+.site-header:hover .header-nav .retro-btn .btn-text {
+    font-size: 15px;
+}
+
+.site-header:hover .header-nav .retro-btn:not(:hover):not(.selected) .corner {
+    width: 12px;
+    height: 12px;
+}
+
+.site-header:hover .header-nav .retro-btn:not(:hover):not(.selected) .plus-line-v {
+    bottom: -12px;
+    height: 24px;
+}
+
+.site-header:hover .header-nav .retro-btn:not(:hover):not(.selected) .plus-line-h {
+    left: -12px;
+    width: 24px;
+}
+
+.site-header:hover .header-nav .retro-btn.selected .btn-body {
+    transform: translate(8px, -8px);
+}
+
+/* --- Главный контейнер ретро-кнопки --- */
+.retro-btn {
+    position: relative;
+    width: 300px;
+    height: 80px;
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    outline: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Задний теневой слой кнопки */
+.btn-shadow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #ebebeb;
+    transition: background-color 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    z-index: 1;
+}
+
+/* Передний интерактивный слой кнопки */
+.btn-body {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: transparent; /* Делаем прозрачным, чтобы видеть рамки на заднем слое */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+    transition: background-color 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                transform 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Стилизация текстов состояний кнопки */
+.btn-text {
+    position: absolute;
+    font-size: 22px;
+    color: #000000;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    white-space: nowrap;
+    pointer-events: none;
+}
+
+.text-idle {
+    font-weight: 500;
+    opacity: 1;
+}
+
+.text-hover {
+    font-weight: 500;
+    opacity: 0;
+}
+
+.text-selected {
+    font-weight: 700;
+    opacity: 0;
+}
+
+/* --- Декоративные элементы окантовки кнопки --- */
+
+/* Уголки */
+.corner {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    pointer-events: none;
+    z-index: 3;
+    transition: width 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                height 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.corner-tl {
+    top: 0;
+    left: 0;
+    border-top: 2px solid #000000;
+    border-left: 2px solid #000000;
+}
+
+.corner-br {
+    bottom: 0;
+    right: 0;
+    border-bottom: 2px solid #000000;
+    border-right: 2px solid #000000;
+}
+
+/* Линии плюсика в левом нижнем углу */
+.plus-line {
+    position: absolute;
+    background-color: #000000;
+    pointer-events: none;
+    z-index: 3;
+}
+
+/* Вертикальная линия плюсика */
+.plus-line-v {
+    left: 0;
+    bottom: -20px;
+    width: 2px;
+    height: 40px;
+    transition: bottom 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                height 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Горизонтальная линия плюсика */
+.plus-line-h {
+    bottom: 0;
+    left: -20px;
+    height: 2px;
+    width: 40px;
+    transition: left 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                width 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* --- Состояние Hover кнопки --- */
+.retro-btn:hover:not(.selected) .btn-body {
+    background-color: transparent;
+}
+
+.retro-btn:hover:not(.selected) .btn-shadow {
+    background-color: #b3f7ff;
+}
+
+.retro-btn:hover:not(.selected) .text-idle {
+    opacity: 0;
+}
+
+.retro-btn:hover:not(.selected) .text-hover {
+    opacity: 1;
+}
+
+.retro-btn:hover:not(.selected) .corner-tl,
+.retro-btn:hover:not(.selected) .corner-br {
+    width: 100%;
+    height: 100%;
+}
+
+.retro-btn:hover:not(.selected) .plus-line-v {
+    bottom: 0;
+    height: 100%;
+}
+
+.retro-btn:hover:not(.selected) .plus-line-h {
+    left: 0;
+    width: 100%;
+}
+
+/* --- Состояние Selected кнопки --- */
+.retro-btn.selected .btn-body {
+    background-color: #b3f7ff;
+    transform: translate(12px, -12px);
+}
+
+.retro-btn.selected .btn-shadow {
+    background-color: #ebebeb;
+}
+
+.retro-btn.selected .text-idle {
+    opacity: 0;
+}
+
+.retro-btn.selected .text-hover {
+    opacity: 0;
+}
+
+.retro-btn.selected .text-selected {
+    opacity: 1;
+}
+
+.retro-btn.selected .corner-tl,
+.retro-btn.selected .corner-br {
+    width: 100%;
+    height: 100%;
+}
+
+.retro-btn.selected .plus-line-v {
+    bottom: 0;
+    height: 100%;
+}
+
+.retro-btn.selected .plus-line-h {
+    left: 0;
+    width: 100%;
+}
+
+
+/* ==========================================================================
+   БОКОВОЕ ВЫЕЗЖАЮЩЕЕ МЕНЮ "СОДЕРЖАНИЕ"
+   ========================================================================== */
+
+/* Общий контейнер меню (справа по центру высоты) */
+.sidebar-menu {
+    position: fixed;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%) translateX(0); /* Развернуто по умолчанию */
+    z-index: 100;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Свернутое состояние меню */
+.sidebar-menu.collapsed {
+    transform: translateY(-50%) translateX(250px); /* Смещаем вправо на ширину контента */
+}
+
+/* Выпирающий язычок-кнопка свертывания */
+.menu-toggle {
+    position: absolute;
+    left: -42px; /* Выступание влево на 42px (под новую ширину 44px) */
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px; /* Увеличено с 42px до 44px для улучшения пропорций */
+    height: 80px; /* Увеличено с 60px до 80px по вертикали */
+    background-color: #ebebeb;
+    /* Черная окантовка везде, кроме правой стороны */
+    border-top: 1px solid #000000;
+    border-bottom: 1px solid #000000;
+    border-left: 1px solid #000000;
+    border-right: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2; /* Поверх левой границы menu-content */
+    outline: none;
+    padding: 0;
+    margin-right: -2px; /* Накладываем поверх границы контента для эффекта слияния */
+    transition: background-color 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.menu-toggle:hover {
+    background-color: #b3f7ff; /* Подсветка циановым при наведении */
+}
+
+/* Стрелочка внутри язычка */
+.arrow-icon {
+    display: inline-block;
+    width: 16px; /* Увеличено с 12px до 16px */
+    height: 16px; /* Увеличено с 12px до 16px */
+    border-left: 3px solid #000000;
+    border-bottom: 3px solid #000000;
+    transform: rotate(225deg); /* Указывает вправо, показывая куда свернется меню */
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                margin-left 0.4s ease;
+    margin-left: -5px; /* Скорректированная оптическая компенсация центрирования */
+}
+
+/* Разворот стрелочки при свертывании */
+.sidebar-menu.collapsed .arrow-icon {
+    transform: rotate(45deg); /* Указывает влево, показывая куда развернется меню */
+    margin-left: 5px;
+}
+
+/* Основное тело меню */
+.menu-content {
+    width: 250px;
+    background-color: #ebebeb;
+    /* Черная окантовка везде, кроме правой прижатой к экрану стороны */
+    border-top: 1px solid #000000;
+    border-bottom: 1px solid #000000;
+    border-left: 1px solid #000000;
+    border-right: none;
+    padding: 40px 0; /* Увеличено с 30px до 40px для вертикального растяжения */
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
+    position: relative;
+}
+
+/* Список пунктов */
+.menu-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Увеличено с 12px до 20px для большей разреженности */
+    padding: 0 15px;
+}
+
+/* Элемент списка (пункт меню) */
+.menu-item {
+    display: flex;
+    align-items: center;
+    padding: 14px 20px; /* Увеличено с 12px 16px до 14px 20px для большего объема */
+    cursor: pointer;
+    position: relative;
+    background-color: transparent;
+    /* Резервируем место под пунктирную рамку, чтобы избежать сдвигов верстки */
+    border: 2px dashed transparent;
+    transition: background-color 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                border-color 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    user-select: none;
+}
+
+/* Элемент списка при наведении (неактивный) */
+.menu-item:not(.active):hover {
+    background-color: rgba(0, 89, 255, 0.08); /* Легкий синий налет */
+}
+
+/* Текст пункта */
+.item-text {
+    font-size: 17px;
+    font-weight: 500;
+    color: #000000;
+    margin-left: 16px;
+    transition: color 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* --- Активное состояние пункта меню --- */
+.menu-item.active {
+    background-color: #0059ff; /* Синий фон */
+    border-color: #464646; /* Темно-серая пунктирная окантовка */
+}
+
+.menu-item.active .item-text {
+    color: #ffffff; /* Белый текст */
+    font-weight: 700;
+}
+
+/* --- Анимация маркера (квадратик -> ромбики) --- */
+
+/* Контейнер маркера */
+.marker-container {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Базовая точка (квадратик) */
+.marker-dot {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background-color: #000000;
+    top: 50%;
+    left: 50%;
+    /* -6px по Y центрирует квадратик 12x12 по вертикали в контейнере 24px */
+    transform: translate(-50%, -6px) rotate(0deg);
+    transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                background-color 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.marker-dot.dot-top {
+    z-index: 2; /* Верхний ромбик перекрывает нижний */
+}
+
+.marker-dot.dot-bottom {
+    z-index: 1;
+}
+
+/* При активации пункта: поворот на 45 градусов, раздвоение и смена цветов */
+.menu-item.active .dot-top {
+    transform: translate(-50%, -12px) rotate(45deg); /* Смещение вверх */
+    background-color: #8cfff9; /* Светло-циановый */
+}
+
+.menu-item.active .dot-bottom {
+    transform: translate(-50%, 0px) rotate(45deg); /* Смещение вниз */
+    background-color: #357774; /* Темно-зеленый */
+}
+
+/* ==========================================================================
+   АДАПТИВНОСТЬ ПОД РАЗНЫЕ РАЗРЕШЕНИЯ ЭКРАНА
+   ========================================================================== */
+
+/* --- Ноутбуки и экраны среднего размера --- */
+@media (max-width: 1440px) {
+    .site-header {
+        height: 50px;
+    }
+    .site-header:hover {
+        height: 80px;
+    }
+    .logo-block {
+        width: 50px;
+    }
+    .site-header:hover .logo-block {
+        width: 80px;
+    }
+    .logo-circle {
+        width: 38px;
+        height: 38px;
+    }
+    .site-header:hover .logo-circle {
+        width: 65px;
+        height: 65px;
+    }
+    .logo-text {
+        font-size: 10px;
+    }
+    .site-header:hover .logo-text {
+        font-size: 15px;
+    }
+    .header-nav {
+        gap: 20px;
+        padding-left: 20px;
+    }
+
+    /* Размеры кнопок в покое */
+    .header-nav .retro-btn {
+        width: 100px;
+        height: 30px;
+    }
+    .header-nav .retro-btn .btn-text {
+        font-size: 11px;
+    }
+    .header-nav .retro-btn:not(:hover):not(.selected) .corner {
+        width: 8px;
+        height: 8px;
+    }
+    .header-nav .retro-btn:not(:hover):not(.selected) .plus-line-v {
+        bottom: -8px;
+        height: 16px;
+    }
+    .header-nav .retro-btn:not(:hover):not(.selected) .plus-line-h {
+        left: -8px;
+        width: 16px;
+    }
+    .header-nav .retro-btn.selected .btn-body {
+        transform: translate(5px, -5px);
+    }
+
+    /* Размеры кнопок при ховере на шапку */
+    .site-header:hover .header-nav .retro-btn {
+        width: 120px;
+        height: 36px;
+    }
+    .site-header:hover .header-nav .retro-btn .btn-text {
+        font-size: 13px;
+    }
+    .site-header:hover .header-nav .retro-btn:not(:hover):not(.selected) .corner {
+        width: 10px;
+        height: 10px;
+    }
+    .site-header:hover .header-nav .retro-btn:not(:hover):not(.selected) .plus-line-v {
+        bottom: -10px;
+        height: 20px;
+    }
+    .site-header:hover .header-nav .retro-btn:not(:hover):not(.selected) .plus-line-h {
+        left: -10px;
+        width: 20px;
+    }
+    .site-header:hover .header-nav .retro-btn.selected .btn-body {
+        transform: translate(6px, -6px);
+    }
+}
+
+/* --- Планшеты и компактные мобильные устройства --- */
+@media (max-width: 768px) {
+    .site-header {
+        height: 45px;
+    }
+    .site-header:hover {
+        height: 45px; /* ховер отключён — шапка всегда сжата */
+    }
+    .logo-block {
+        width: 45px;
+    }
+    .site-header:hover .logo-block {
+        width: 45px;
+    }
+    .logo-circle {
+        width: 32px;
+        height: 32px;
+    }
+    .site-header:hover .logo-circle {
+        width: 32px;
+        height: 32px;
+    }
+    .logo-text {
+        font-size: 8px;
+    }
+    .site-header:hover .logo-text {
+        font-size: 8px;
+    }
+    .header-nav {
+        gap: 15px;
+        padding-left: 15px;
+    }
+
+    /* Размеры кнопок в покое */
+    .header-nav .retro-btn {
+        width: 80px;
+        height: 26px;
+    }
+    .header-nav .retro-btn .btn-text {
+        font-size: 9px;
+    }
+    .header-nav .retro-btn:not(:hover):not(.selected) .corner {
+        width: 6px;
+        height: 6px;
+    }
+    .header-nav .retro-btn:not(:hover):not(.selected) .plus-line-v {
+        bottom: -6px;
+        height: 12px;
+    }
+    .header-nav .retro-btn:not(:hover):not(.selected) .plus-line-h {
+        left: -6px;
+        width: 12px;
+    }
+    .header-nav .retro-btn.selected .btn-body {
+        transform: translate(4px, -4px);
+    }
+
+    /* На сенсорных экранах ховер отключён: nav-кнопки при тапе не «разрастаются»,
+       а залипший :hover не меняет вид. Значения приравнены к покою. */
+    .site-header:hover .header-nav .retro-btn {
+        width: 80px;
+        height: 26px;
+    }
+    .site-header:hover .header-nav .retro-btn .btn-text {
+        font-size: 9px;
+    }
+    .site-header:hover .header-nav .retro-btn:not(:hover):not(.selected) .corner {
+        width: 6px;
+        height: 6px;
+    }
+    .site-header:hover .header-nav .retro-btn:not(:hover):not(.selected) .plus-line-v {
+        bottom: -6px;
+        height: 12px;
+    }
+    .site-header:hover .header-nav .retro-btn:not(:hover):not(.selected) .plus-line-h {
+        left: -6px;
+        width: 12px;
+    }
+    .site-header:hover .header-nav .retro-btn.selected .btn-body {
+        transform: translate(4px, -4px);
+    }
+
+    /* Сброс ховер-эффектов прочих элементов (логотип, меню, дерево, аккордеон, ретро-кнопки) */
+    .logo-circle:hover {
+        background-color: #d9d9d9;
+    }
+    .menu-toggle:hover {
+        background-color: #ebebeb;
+    }
+    .menu-item:not(.active):hover {
+        background-color: transparent;
+    }
+    .retro-btn:hover:not(.selected) .btn-shadow {
+        background-color: #ebebeb;
+    }
+    .retro-btn:hover:not(.selected) .text-idle {
+        opacity: 1;
+    }
+    .retro-btn:hover:not(.selected) .text-hover {
+        opacity: 0;
+    }
+    .retro-btn:hover:not(.selected) .corner-tl,
+    .retro-btn:hover:not(.selected) .corner-br {
+        width: 20px;
+        height: 20px;
+    }
+    .retro-btn:hover:not(.selected) .plus-line-v {
+        bottom: -20px;
+        height: 40px;
+    }
+    .retro-btn:hover:not(.selected) .plus-line-h {
+        left: -20px;
+        width: 40px;
+    }
+    .header-nav .retro-btn:hover:not(.selected) .corner {
+        width: 6px;
+        height: 6px;
+    }
+    .header-nav .retro-btn:hover:not(.selected) .plus-line-v {
+        bottom: -6px;
+        height: 12px;
+    }
+    .header-nav .retro-btn:hover:not(.selected) .plus-line-h {
+        left: -6px;
+        width: 12px;
+    }
+
+    /* Боковое меню перенесено в правый нижний угол — язычок не перекрывает контент */
+    .sidebar-menu {
+        top: auto;
+        bottom: 20px;
+        transform: translateX(0);
+    }
+    .sidebar-menu.collapsed {
+        transform: translateX(250px);
+    }
+    .menu-toggle {
+        top: auto;
+        bottom: 0;
+        transform: none;
+        height: 56px;
+    }
+}
+
+/* ==========================================================================
+   ОСНОВНОЙ КОНТЕНТ И РЕТРО-ОКНА
+   ========================================================================== */
+
+/* Контейнер основного контента (центрирование таблички) */
+.main-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding-top: 60px; /* Симметрично с padding-bottom для центрирования по вертикали */
+    padding-bottom: 60px;
+    background-color: #f5f5f5;
+}
+
+.resume-layout {
+    height: 100vh;
+    min-height: auto;
+    padding-top: 0;
+    padding-bottom: 0;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* Предотвращает "выталкивание" секций за пределы экрана при центрировании */
+    gap: 0;
+    overflow-y: auto;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+    -ms-overflow-style: none;  /* Скрываем скроллбар для IE/Edge */
+    scrollbar-width: none;  /* Скрываем скроллбар для Firefox */
+}
+
+.resume-layout::-webkit-scrollbar {
+    display: none; /* Скрываем скроллбар для Chrome/Safari/Opera */
+}
+
+/* Секция резюме (слайд во весь экран) */
+.resume-section {
+    min-height: 100vh; /* min-height вместо height: растёт под tall-контент, не обрезая низ */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    flex-shrink: 0;
+    padding-top: 60px; /* Компенсация высоты шапки */
+    padding-bottom: 60px; /* Симметрично с padding-top → карточка по центру по вертикали */
+}
+
+/* Ретро-окно (табличка) */
+.retro-window {
+    width: 540px;
+    max-width: 90%;
+    background-color: #c0c0c0; /* Серый фон окна (как в окнах резюме) */
+    border: 1px solid #000000;
+    box-shadow: -6px 6px 0px #b3f7ff; /* Циановая тень влево-вниз */
+    display: flex;
+    flex-direction: column;
+}
+
+.window-titlebar {
+    background-color: #2b3f94; /* Темно-синий фон заголовка (как в окнах резюме) */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 8px;
+    border-bottom: 2px solid #a0a0a0; /* Внутренняя граница под заголовком */
+}
+
+.titlebar-text {
+    color: #ffffff;
+    font-size: 16px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    padding-left: 5px;
+}
+
+.window-controls {
+    display: flex;
+    gap: 4px;
+}
+
+.window-body {
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.window-heading {
+    font-size: 24px;
+    font-weight: 700;
+    color: #000000;
+    margin-bottom: 5px;
+}
+
+.window-text {
+    font-size: 15px;
+    line-height: 1.5;
+    color: #333333;
+}
+
+.window-subtext {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #555555;
+    border-left: 3px solid #0059ff;
+    padding-left: 10px;
+    margin-bottom: 5px;
+}
+
+.window-actions {
+    margin-top: 10px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+/* Кнопка внутри окна */
+.window-actions .retro-btn.inline-btn {
+    width: 200px;
+    height: 48px;
+}
+
+.window-actions .retro-btn.inline-btn .btn-text {
+    font-size: 14px;
+}
+
+.window-actions .retro-btn.inline-btn:not(:hover):not(.selected) .corner {
+    width: 10px;
+    height: 10px;
+}
+
+.window-actions .retro-btn.inline-btn:not(:hover):not(.selected) .plus-line-v {
+    bottom: -10px;
+    height: 20px;
+}
+
+.window-actions .retro-btn.inline-btn:not(:hover):not(.selected) .plus-line-h {
+    left: -10px;
+    width: 20px;
+}
+
+.window-actions .retro-btn.inline-btn.selected .btn-body {
+    transform: translate(6px, -6px);
+}
+
+/* --- Адаптивность для окон на мобильных устройствах --- */
+@media (max-width: 768px) {
+    .main-content {
+        padding-top: 80px;
+        padding-bottom: 40px;
+    }
+    
+    .resume-layout {
+        gap: 25px;
+    }
+    
+    .retro-window {
+        width: 90%;
+    }
+    
+    .window-body {
+        padding: 15px;
+        gap: 10px;
+    }
+    
+    .window-heading {
+        font-size: 20px;
+    }
+    
+    .window-text {
+        font-size: 13px;
+    }
+    
+    .window-subtext {
+        font-size: 12px;
+    }
+    
+    .window-actions .retro-btn.inline-btn {
+        width: 160px;
+        height: 40px;
+    }
+    
+    .window-actions .retro-btn.inline-btn .btn-text {
+        font-size: 12px;
+    }
+    
+    .window-actions .retro-btn.inline-btn:not(:hover):not(.selected) .corner {
+        width: 8px;
+        height: 8px;
+    }
+    
+    .window-actions .retro-btn.inline-btn:not(:hover):not(.selected) .plus-line-v {
+        bottom: -8px;
+        height: 16px;
+    }
+    
+    .window-actions .retro-btn.inline-btn:not(:hover):not(.selected) .plus-line-h {
+        left: -8px;
+        width: 16px;
+    }
+    
+    .window-actions .retro-btn.inline-btn.selected .btn-body {
+        transform: translate(4px, -4px);
+    }
+}
+
+/* --- Страница резюме: белый фон --- */
+.resume-layout {
+    background-color: #ffffff;
+}
+
+/* --- Первая карточка резюме (Hero Card) --- */
+.hero-card {
+    display: flex;
+    align-items: center;
+    gap: 150px; /* Увеличен зазор между фото и текстовой панелью для распределения по горизонтали */
+    max-width: 1300px; /* Увеличена максимальная ширина для заполнения широких экранов */
+    width: 90%;
+    margin: 0 auto;
+}
+
+.profile-photo-placeholder {
+    width: 300px;
+    height: 360px;
+    background-color: #d9d9d9;
+    border: 1px solid #000000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 500;
+    color: #000000;
+    flex-shrink: 0;
+    user-select: none;
+}
+
+.profile-info {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.profile-name {
+    font-size: 32px;
+    font-weight: 400;
+    color: #000000;
+    margin-bottom: 45px; /* Увеличен отступ до специализации для вертикального заполнения */
+    font-family: 'Inter', sans-serif;
+}
+
+.profile-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #000000;
+    margin-bottom: 90px; /* Увеличен отступ до текстового описания для вертикального заполнения */
+    line-height: 1.3;
+}
+
+.profile-description {
+    display: flex;
+    flex-direction: column;
+    gap: 60px; /* Увеличено расстояние между абзацами описания */
+}
+
+.profile-text {
+    font-size: 20px;
+    font-weight: 400;
+    color: #000000;
+    line-height: 1.4;
+}
+
+
+/* --- Адаптивность для Hero Card --- */
+@media (max-width: 1440px) {
+    .hero-card {
+        gap: 70px; /* Увеличен зазор для средних экранов */
+        max-width: 950px; /* Увеличена ширина для средних экранов */
+    }
+    
+    .profile-photo-placeholder {
+        width: 240px;
+        height: 288px; /* Сохраняем пропорции 5:6 */
+        font-size: 16px;
+    }
+    
+    .profile-name {
+        font-size: 26px;
+        margin-bottom: 20px; /* Сбалансированный увеличенный отступ */
+    }
+    
+    .profile-title {
+        font-size: 17px;
+        margin-bottom: 45px; /* Сбалансированный увеличенный отступ */
+    }
+    
+    .profile-description {
+        gap: 30px; /* Сбалансированное расстояние */
+    }
+    
+    .profile-text {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-card {
+        flex-direction: column; /* Вертикальный стек */
+        text-align: center;
+        gap: 25px;
+        max-width: 450px;
+        margin-top: 20px;
+    }
+    
+    .profile-photo-placeholder {
+        width: 200px;
+        height: 240px;
+    }
+    
+    .profile-info {
+        align-items: center;
+    }
+    
+    .profile-name {
+        font-size: 22px;
+    }
+    
+    .profile-title {
+        font-size: 15px;
+        margin-bottom: 20px;
+    }
+    
+    .profile-description {
+        gap: 12px;
+    }
+    
+    .profile-text {
+        font-size: 14px;
+        line-height: 1.3;
+    }
+}
+
+/* ==========================================================================
+   ВТОРАЯ КАРТОЧКА (ОБО МНЕ) - СТИЛЬ NOTEPAD
+   ========================================================================== */
+
+.notepad-window {
+    width: 90%;
+    max-width: 1200px;
+    background-color: #c0c0c0; /* Серая рамка/фон окна */
+    display: flex;
+    flex-direction: column;
+    box-shadow: -16px 16px 0px #b3f7ff; /* Циановая тень влево-вниз */
+}
+
+/* --- Заголовок окна Notepad --- */
+.notepad-titlebar {
+    background-color: #2b3f94; /* Темно-синий фон заголовка (Win98) */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 8px;
+    border-bottom: 2px solid #a0a0a0; /* Внутренняя граница под заголовком */
+}
+
+.notepad-title {
+    color: #ffffff;
+    font-size: 18px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    padding-left: 5px;
+}
+
+/* Кнопки управления (Свернуть, Развернуть, Закрыть) */
+.notepad-controls {
+    display: flex;
+    gap: 4px;
+}
+
+.win-btn {
+    width: 24px;
+    height: 24px;
+    background-color: #c0c0c0;
+    border: 1px solid #000000; /* Плоская черная граница */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    padding: 0;
+    outline: none;
+    box-shadow: inset -1px -1px #000, inset 1px 1px #fff; /* Легкий эффект кнопки Win98 */
+}
+
+.win-btn:active {
+    box-shadow: inset 1px 1px #000, inset -1px -1px #fff; /* Эффект нажатия */
+}
+
+.win-btn span {
+    color: #000000;
+    font-weight: 700;
+    line-height: 1;
+    display: block;
+}
+
+.icon-min {
+    font-size: 14px;
+    margin-top: -6px;
+}
+
+.icon-max {
+    font-size: 16px;
+    margin-top: -2px;
+}
+
+.icon-close {
+    font-size: 14px;
+}
+
+/* --- Строка меню Notepad --- */
+.notepad-menubar {
+    display: flex;
+    background-color: #c0c0c0;
+    padding: 2px 8px;
+    border-bottom: 1px solid #808080; /* Отделяем меню от рабочей области */
+}
+
+.notepad-menubar .notepad-menu-item {
+    font-size: 14px;
+    color: #000000;
+    padding: 2px 6px;
+    cursor: default;
+    user-select: none;
+}
+
+.notepad-menubar .notepad-menu-item:first-letter {
+    text-decoration: underline;
+}
+
+/* --- Рабочая область (Текст) --- */
+.notepad-content {
+    background-color: #ffffff;
+    margin: 0 4px 4px 4px; /* Отступы от серой рамки */
+    padding: 40px;
+    border: none;
+    box-shadow: inset -1px -1px #fff, inset 1px 1px #000; /* Утопленная рабочая область */
+    display: flex;
+    flex-direction: column;
+    gap: 30px; /* Расстояние между абзацами */
+}
+
+.notepad-content p {
+    font-family: 'Consolas', 'Courier New', monospace; /* Моноширинный шрифт */
+    font-size: 22px;
+    line-height: 1.5;
+    color: #000000;
+    margin: 0;
+    white-space: pre-wrap; /* Сохраняет переносы строк <br> и пробелы */
+}
+
+/* Мигающий курсор */
+.cursor-blink {
+    font-weight: bold;
+    color: #000000;
+    animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* --- Адаптивность для окна Notepad --- */
+@media (max-width: 1440px) {
+    .notepad-window {
+        max-width: 950px;
+    }
+    
+    .notepad-content {
+        padding: 30px;
+        gap: 20px;
+    }
+    
+    .notepad-content p {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 768px) {
+    .notepad-window {
+        width: 95%;
+        margin-top: 20px;
+        box-shadow: -8px 8px 0px #b3f7ff;
+        max-height: calc(100vh - 140px); /* Окно в пределах экрана — тень не съезжает */
+        overflow: hidden;
+    }
+    
+    .notepad-title {
+        font-size: 15px;
+    }
+    
+    .win-btn {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .notepad-content {
+        padding: 20px 15px;
+        gap: 15px;
+        margin: 0 5px 5px 5px;
+        flex: 1 1 auto;     /* Заполняет окно, сжимается под max-height */
+        min-height: 0;      /* Разрешает внутренний скролл текста */
+        overflow-y: auto;
+    }
+    
+    .notepad-content p {
+        font-size: 14px;
+    }
+}
+
+/* ==========================================================================
+   ТРЕТЬЯ КАРТОЧКА (ЧТО Я УМЕЮ) - АБСТРАКТНОЕ ОКНО С АККОРДЕОНАМИ
+   ========================================================================== */
+
+.skills-window {
+    position: relative;
+    width: 90%;
+    max-width: 1200px;
+    background-color: #ebebeb;
+    border: 1px solid #000000;
+    box-shadow: -16px 16px 0px #b3f7ff; /* Сплошная циановая тень влево-вниз */
+    padding: 40px 50px;
+    display: flex;
+    flex-direction: column;
+    z-index: 2;
+}
+
+/* Элемент аккордеона */
+.accordion-item {
+    border-bottom: 1px solid #000000;
+    padding: 25px 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.accordion-item:last-child {
+    border-bottom: none;
+}
+
+/* Заголовок аккордеона */
+.accordion-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    cursor: pointer;
+    user-select: none;
+    outline: none;
+}
+
+/* Кнопка + / - */
+.accordion-toggle-btn {
+    width: 24px;
+    height: 24px;
+    border: 1px solid #000000;
+    background-color: #ffffff;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-weight: 700;
+    font-size: 16px;
+    color: #000000;
+    transition: background-color 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                transform 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Подсветка кнопки при наведении на весь заголовок */
+.accordion-header:hover .accordion-toggle-btn {
+    background-color: #b3f7ff;
+}
+
+/* Эффект нажатия на кнопку */
+.accordion-header:active .accordion-toggle-btn {
+    transform: scale(0.92);
+}
+
+/* Текст заголовка */
+.accordion-title {
+    font-size: 26px;
+    font-weight: 700;
+    color: #000000;
+    transition: color 0.25s ease;
+}
+
+.accordion-header:hover .accordion-title {
+    color: #0059ff; /* Легкая ретро-подсветка названия секции синим при наведении */
+}
+
+/* Панель с контентом */
+.accordion-content {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    padding-left: 44px; /* Выравнивание под текстом заголовка: ширина кнопки 24px + gap 20px */
+    transition: max-height 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                opacity 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                margin-top 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    margin-top: 0;
+}
+
+/* Раскрытое состояние */
+.accordion-item.expanded .accordion-content {
+    opacity: 1;
+    margin-top: 25px;
+}
+
+/* Список навыков */
+.skills-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.skills-list li {
+    position: relative;
+    padding-left: 25px;
+    font-size: 20px;
+    line-height: 1.5;
+    color: #000000;
+}
+
+/* Кастомный маркер-квадратик */
+.skills-list li::before {
+    content: "■";
+    position: absolute;
+    left: 0;
+    top: 0.18em; /* Адаптивный сдвиг вниз для выравнивания */
+    font-size: 0.7em; /* Уменьшенный размер маркера-квадрата */
+    color: #000000;
+}
+
+/* Выделение ключевых слов */
+.skills-list li strong {
+    font-weight: 700;
+}
+
+/* --- Адаптивность для карточки Skills --- */
+@media (max-width: 1440px) {
+    .skills-window {
+        max-width: 950px;
+        padding: 30px;
+        box-shadow: -12px 12px 0px #b3f7ff;
+    }
+    
+    .accordion-item {
+        padding: 20px 0;
+    }
+    
+    .accordion-header {
+        gap: 15px;
+    }
+    
+    .accordion-toggle-btn {
+        width: 20px;
+        height: 20px;
+        font-size: 14px;
+    }
+    
+    .accordion-title {
+        font-size: 20px;
+    }
+    
+    .accordion-content {
+        padding-left: 35px; /* кнопка 20px + gap 15px */
+    }
+    
+    .skills-list {
+        gap: 15px;
+    }
+    
+    .skills-list li {
+        font-size: 16px;
+        padding-left: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .skills-window {
+        width: 95%;
+        padding: 20px 15px;
+        box-shadow: -8px 8px 0px #b3f7ff;
+        margin-top: 20px;
+        max-height: calc(100vh - 140px); /* Окно в пределах экрана — тень не съезжает */
+        overflow-y: auto;     /* Аккордеоны скроллятся внутри, рамка/тень окна неподвижны */
+    }
+    
+    .accordion-item {
+        padding: 15px 0;
+    }
+    
+    .accordion-header {
+        gap: 10px;
+    }
+    
+    .accordion-toggle-btn {
+        width: 18px;
+        height: 18px;
+        font-size: 12px;
+    }
+    
+    .accordion-title {
+        font-size: 16px;
+    }
+    
+    .accordion-content {
+        padding-left: 28px; /* кнопка 18px + gap 10px */
+    }
+    
+    .accordion-item.expanded .accordion-content {
+        margin-top: 15px;
+    }
+    
+    .skills-list {
+        gap: 10px;
+    }
+    
+    .skills-list li {
+        font-size: 14px;
+        padding-left: 15px;
+    }
+}
+
+/* ==========================================================================
+   ЧЕТВЕРТАЯ КАРТОЧКА (ПРОЕКТЫ) - WINDOWS 95 FILE EXPLORER
+   ========================================================================== */
+
+.explorer-window {
+    position: relative;
+    width: 90%;
+    max-width: 1200px;
+    background-color: #c0c0c0; /* Серый фон Win95 */
+    border: 1px solid #000000;
+    box-shadow: -16px 16px 0px #b3f7ff; /* Сплошная тень влево-вниз */
+    display: flex;
+    flex-direction: column;
+    z-index: 2;
+}
+
+/* Заголовок проводника */
+.explorer-titlebar {
+    background-color: #2b3f94; /* Темно-синий фон Win95 */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 8px;
+    border-bottom: 2px solid #a0a0a0;
+}
+
+.explorer-title {
+    color: #ffffff;
+    font-size: 16px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    padding-left: 5px;
+}
+
+.explorer-controls {
+    display: flex;
+    gap: 4px;
+}
+
+/* Строка меню */
+.explorer-menubar {
+    display: flex;
+    gap: 20px;
+    padding: 6px 15px;
+    background-color: #c0c0c0;
+    border-bottom: 1px solid #808080;
+    user-select: none;
+}
+
+.menubar-item {
+    font-size: 14px;
+    color: #000000;
+    font-family: 'Inter', sans-serif;
+    cursor: default;
+}
+
+.menubar-item:first-letter {
+    text-decoration: underline; /* Подчеркивание первой буквы горячих клавиш */
+}
+
+/* Рабочая область (две колонки) */
+.explorer-body {
+    display: flex;
+    height: 520px;
+    background-color: #c0c0c0;
+    padding: 10px;
+    gap: 10px;
+}
+
+/* Левая панель: дерево папок */
+.explorer-sidebar {
+    flex: 0 0 300px;
+    background-color: #ffffff;
+    border: 2px solid #000000;
+    overflow: hidden; /* Рамка/тень неподвижны — скроллится внутренний .explorer-tree */
+    padding: 15px 10px; /* Отступ внутри рамки: скролл-контейнер клиппит по content-edge, текст не доходит до bevel */
+    position: relative; /* Контекст для ::after-рамки поверх скролл-контента */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Утопленная Win95-рамка рисуется поверх скроллящегося контента (::after),
+   иначе текст при скролле рисуется поверх inset-тени рамки. */
+.explorer-sidebar::after,
+.explorer-content::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none; /* Клик/скролл проходят к контенту */
+    z-index: 2; /* Поверх контента, но под нативным скроллбаром */
+    box-shadow: inset -1.5px -1.5px #fff, inset 1.5px 1.5px #808080, inset -3px -3px #e0e0e0, inset 3px 3px #0a0a0a;
+}
+
+/* Правая панель: контент README */
+.explorer-content {
+    flex: 1;
+    background-color: #ffffff;
+    border: 2px solid #000000;
+    overflow: hidden; /* Рамка/тень неподвижны — скроллится внутренний .explorer-scroll */
+    padding: 30px; /* Отступ внутри рамки: скролл-контейнер клиппит по content-edge, текст не доходит до bevel */
+    position: relative; /* Контекст для ::after-рамки */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Внутренний скролл-контейнер README: скроллится только текст, без обрамления панели.
+   padding=0 — клиппит по content-edge рамки (30px от border), текст не попадает в bevel-зону.
+   z-index:1 изолирует контент в SC ниже bevel (::after z-index:2) — bevel гарантированно поверх. */
+.explorer-scroll {
+    flex: 1 1 auto;
+    min-height: 0; /* Разрешает сжатие и внутренний скролл в flex-панели */
+    overflow-y: auto;
+    padding: 0;
+    position: relative;
+    z-index: 1;
+}
+
+/* --- Дерево папок Explorer --- */
+/* Внутренний скролл-контейнер дерева: скроллится только дерево, без обрамления панели.
+   padding=0 — клиппит по content-edge рамки (15px от border), текст не попадает в bevel-зону.
+   z-index:1 изолирует контент в SC ниже bevel (::after z-index:2) — bevel гарантированно поверх. */
+.explorer-tree {
+    flex: 1 1 auto;
+    min-height: 0; /* Разрешает сжатие и внутренний скролл в flex-панели */
+    overflow-y: auto;
+    padding: 0;
+    position: relative;
+    z-index: 1;
+}
+
+.explorer-tree ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Скрытые дети по умолчанию */
+.explorer-tree .tree-children {
+    display: none;
+    position: relative;
+    padding-left: 20px; /* Отступ для вложенности */
+}
+
+/* Показываем детей, если родитель expanded */
+.explorer-tree .tree-item.branch.expanded > .tree-children {
+    display: block;
+}
+
+/* Элемент списка (строка дерева) */
+.explorer-tree .tree-item {
+    position: relative;
+    margin: 0;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+/* Вертикальная пунктирная линия связи (идет сквозь элемент) */
+.explorer-tree .tree-item::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -12px;
+    border-left: 1px dashed #808080;
+    z-index: 1;
+}
+
+/* Горизонтальный пунктирный ответвитель */
+.explorer-tree .tree-item::after {
+    content: "";
+    position: absolute;
+    top: 13px; /* 2px padding + половина строки tree-row */
+    left: -12px;
+    width: 12px;
+    border-top: 1px dashed #808080;
+    z-index: 1;
+}
+
+/* Для последнего ребенка вертикальная линия не должна идти ниже горизонтального отвода */
+.explorer-tree .tree-item:last-child::before {
+    bottom: auto;
+    height: 14px;
+}
+
+/* Убираем любые соединительные линии для главного корня (Kamil-PC) */
+.explorer-tree > .tree-root > .tree-item::before,
+.explorer-tree > .tree-root > .tree-item::after {
+    display: none !important;
+}
+
+/* --- Стилизация скроллбаров проводника под ретро Windows 95 --- */
+/* Скроллят внутренние контейнеры (.explorer-scroll/.explorer-tree),
+   поэтому стили скроллбара привязаны к ним, а не к самим панелям. */
+.explorer-scroll::-webkit-scrollbar,
+.explorer-tree::-webkit-scrollbar {
+    width: 16px;
+    height: 16px;
+    background-color: #e6e6e6;
+}
+
+.explorer-scroll::-webkit-scrollbar-thumb,
+.explorer-tree::-webkit-scrollbar-thumb {
+    background-color: #c0c0c0;
+    border: 2px solid #c0c0c0;
+    /* Рельефный Win95-эффект кнопки */
+    box-shadow: inset 1px 1px #dfdfdf, inset -1px -1px #0a0a0a, inset 2px 2px #fff, inset -2px -2px #808080;
+}
+
+.explorer-scroll::-webkit-scrollbar-track,
+.explorer-tree::-webkit-scrollbar-track {
+    background-color: #e6e6e6;
+    /* Шахматный ретро-узор для дорожки скроллбара */
+    background-image: radial-gradient(#bcbcbc 25%, transparent 25%),
+                      radial-gradient(#bcbcbc 25%, transparent 25%);
+    background-size: 4px 4px;
+    background-position: 0 0, 2px 2px;
+}
+
+/* Контейнер строки дерева */
+.tree-row {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 2px 4px;
+    border: 1px dotted transparent;
+    cursor: pointer;
+    user-select: none;
+    border-radius: 2px;
+}
+
+/* Кнопка + / - */
+.tree-toggle {
+    width: 9px;
+    height: 9px;
+    border: 1px solid #808080;
+    background-color: #ffffff;
+    color: #000000;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    font-family: monospace;
+    font-size: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    outline: none;
+    padding: 0;
+    z-index: 5;
+    margin-right: 2px;
+}
+
+.tree-toggle:hover {
+    background-color: #e5e5e5;
+}
+
+/* Заглушка-отступ для конечных файлов (без кнопки + / -) */
+.tree-spacer {
+    width: 11px; /* Совпадает с шириной кнопки toggle + margin */
+    display: inline-block;
+    flex-shrink: 0;
+}
+
+/* Иконка папки/компьютера */
+.tree-icon {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+/* Текст элемента */
+.tree-label {
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    color: #000000;
+    white-space: nowrap;
+    padding: 0 4px;
+    border: 1px solid transparent;
+}
+
+/* Выделенный конечный файл (Проект) */
+.tree-item.leaf.selected .tree-label {
+    background-color: #000080; /* Синий фон выделения Win95 */
+    color: #ffffff;
+    border: 1px dotted #ffffff; /* Точечная рамка фокуса */
+}
+
+/* --- Стилизация отрендеренного Markdown (README.md) --- */
+.markdown-body {
+    color: #000000;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+.markdown-body h1 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #808080;
+}
+
+.markdown-body h2 {
+    font-size: 19px;
+    font-weight: 700;
+    margin-top: 24px;
+    margin-bottom: 12px;
+}
+
+.markdown-body h3 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-top: 16px;
+    margin-bottom: 8px;
+}
+
+.markdown-body p {
+    margin-top: 0;
+    margin-bottom: 12px;
+}
+
+.markdown-body ul, .markdown-body ol {
+    margin-top: 0;
+    margin-bottom: 12px;
+    padding-left: 20px;
+}
+
+.markdown-body li {
+    margin-bottom: 6px;
+}
+
+.markdown-body code {
+    background-color: #f3f3f3;
+    border: 1px solid #dcdcdc;
+    padding: 2px 5px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 13.5px;
+    border-radius: 3px;
+}
+
+.markdown-body pre {
+    background-color: #f6f6f6;
+    border: 1px solid #c0c0c0;
+    padding: 15px;
+    overflow-x: auto;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    border-radius: 3px;
+}
+
+.markdown-body pre code {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    font-size: 13px;
+}
+
+/* --- Адаптивность для Проводника --- */
+@media (max-width: 1440px) {
+    .explorer-window {
+        max-width: 950px;
+        box-shadow: -12px 12px 0px #b3f7ff;
+    }
+    
+    .explorer-body {
+        height: 460px;
+    }
+    
+    .explorer-sidebar {
+        flex: 0 0 250px;
+    }
+    
+    .explorer-content {
+        padding: 20px;
+    }
+
+    .explorer-scroll {
+        padding: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .explorer-window {
+        width: 95%;
+        box-shadow: -8px 8px 0px #b3f7ff;
+        margin-top: 20px;
+        max-height: calc(100vh - 140px); /* Окно в пределах экрана — тень не съезжает при скролле */
+        overflow: hidden; /* Контент скроллится внутри панелей, не окном */
+    }
+    
+    .explorer-title {
+        font-size: 14px;
+    }
+    
+    .explorer-menubar {
+        gap: 12px;
+        padding: 4px 10px;
+    }
+    
+    .menubar-item {
+        font-size: 12px;
+    }
+    
+    .explorer-body {
+        flex-direction: column; /* Вертикальный стек на смартфонах */
+        flex: 1 1 auto;         /* Тело гибкое: сжимается под max-height окна */
+        height: auto;           /* Переопределяет фиксированные 500px */
+        min-height: 0;          /* Разрешает сжатие, чтобы панели скроллились внутри */
+        padding: 5px;
+        gap: 5px;
+    }
+    
+    .explorer-sidebar {
+        flex: 0 0 160px; /* Фиксированная высота дерева сверху */
+        min-height: 0;
+        overflow: hidden; /* Рамка неподвижна — скроллится .explorer-tree */
+        padding: 10px 5px; /* Отступ внутри рамки — текст клиппит до bevel */
+    }
+
+    .explorer-tree {
+        padding: 0;
+    }
+    
+    .explorer-content {
+        flex: 1; /* Оставшаяся область для README */
+        min-height: 0;
+        overflow: hidden; /* Рамка неподвижна — скроллится .explorer-scroll */
+        padding: 15px; /* Отступ внутри рамки — текст клиппит до bevel */
+    }
+
+    .explorer-scroll {
+        padding: 0;
+    }
+    
+    .markdown-body {
+        font-size: 13.5px;
+    }
+    
+    .markdown-body h1 {
+        font-size: 18px;
+    }
+    
+    .markdown-body h2 {
+        font-size: 15px;
+    }
+}
+
+/* ==========================================================================
+   ПЯТАЯ КАРТОЧКА (ИНТЕРЕСНОЕ) - СВОЙСТВА: ЭКРАН (DISPLAY PROPERTIES)
+   ========================================================================== */
+
+.display-window {
+    width: 90%;
+    max-width: 1200px;
+    background-color: #c0c0c0;
+    border: 1px solid #000000;
+    box-shadow: -16px 16px 0px #b3f7ff; /* Циановая тень влево-вниз */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Заголовок Display Properties */
+.display-titlebar {
+    background-color: #2b3f94; /* Темно-синий фон заголовка (как в Notepad/Проводник) */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 8px;
+    border-bottom: 2px solid #a0a0a0; /* Внутренняя граница под заголовком */
+}
+
+.display-title-left {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.display-title-icon {
+    width: 16px;
+    height: 16px;
+}
+
+.display-title {
+    color: #ffffff;
+    font-size: 16px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.display-controls {
+    display: flex;
+    gap: 4px;
+}
+
+/* Вкладки (Tabs) */
+.display-tabs {
+    display: flex;
+    padding-left: 6px;
+    margin-top: 6px;
+    border-bottom: 1px solid #000000;
+    gap: 2px;
+    z-index: 5;
+}
+
+.display-tab {
+    background-color: #c0c0c0;
+    border: 1px solid #000000;
+    border-bottom: none;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+    padding: 3px 10px;
+    font-size: 12px;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    box-shadow: none;
+    outline: none;
+    position: relative;
+    top: 1px;
+}
+
+.display-tab:focus-visible {
+    outline: 1px dotted #000000;
+    outline-offset: -3px;
+}
+
+.display-tab.active {
+    background-color: #c0c0c0;
+    border: 1px solid #000000;
+    box-shadow: none;
+    font-weight: bold;
+    padding: 5px 12px 4px 12px;
+    top: 2px;
+    z-index: 6;
+    margin-top: -2px;
+    border-bottom: 1px solid #c0c0c0; /* Перекрывает черную границу контейнера */
+}
+
+/* Тело вкладки */
+.display-tab-body {
+    background-color: #c0c0c0;
+    border: 1px solid #000000;
+    border-top: none;
+    padding: 25px;
+    margin: 0 4px;
+}
+
+.display-tab-layout {
+    display: flex;
+    align-items: stretch;
+    justify-content: space-around;
+    gap: 30px;
+}
+
+/* --- Модель CRT-монитора на CSS --- */
+.crt-monitor-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.crt-monitor {
+    width: 400px;
+    height: 300px;
+    background-color: #c0c0c0;
+    border-radius: 4px;
+    border: 1px solid #000000;
+    box-shadow: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 12px;
+    box-sizing: border-box;
+}
+
+.crt-bezel {
+    width: 100%;
+    height: 100%;
+    background-color: #c0c0c0;
+    border: 1px solid #000000;
+    box-shadow: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+    padding: 8px;
+    box-sizing: border-box;
+    border-radius: 2px;
+}
+
+.crt-screen-container {
+    width: 100%;
+    flex: 1 1 auto;
+    background-color: #000000;
+    border: 1px solid #000000;
+    box-shadow: none;
+    border-radius: 2px;
+    overflow: hidden;
+    position: relative;
+}
+
+.crt-screen {
+    width: 100%;
+    height: 100%;
+    background-color: #0c100a; /* Темный экран */
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* === Выключение / включение CRT (с нуля) === */
+/* Выключение: контент схлопывается в яркую горизонтальную линию,
+   вспышка тает, экран затемняется. */
+.crt-screen.power-off .crt-ascii,
+.crt-screen.power-off .crt-scanlines,
+.crt-screen.power-off .crt-flicker {
+    animation: crt-collapse 0.42s cubic-bezier(0.55, 0.1, 0.3, 1) forwards;
+}
+
+@keyframes crt-collapse {
+    0%   { transform: scaleY(1);    opacity: 1; }
+    55%  { transform: scaleY(0.01); opacity: 1; }  /* яркая линия */
+    100% { transform: scaleY(0.01); opacity: 0; }  /* линия тает */
+}
+
+/* Яркая линия в центре экрана при выключении */
+.crt-screen.power-off::after {
+    content: '';
+    position: absolute;
+    left: 8%;
+    right: 8%;
+    top: 50%;
+    height: 2px;
+    background: #e6fbff;
+    box-shadow: 0 0 6px 2px rgba(230, 251, 255, 0.85);
+    transform: translateY(-50%) scaleX(0);
+    opacity: 0;
+    animation: crt-line-out 0.22s 0.2s cubic-bezier(0.55, 0.1, 0.3, 1) both;
+    z-index: 12;
+    pointer-events: none;
+}
+
+@keyframes crt-line-out {
+    0%   { transform: translateY(-50%) scaleX(0);   opacity: 0; }
+    35%  { transform: translateY(-50%) scaleX(1);   opacity: 1; }
+    70%  { transform: translateY(-50%) scaleX(1);   opacity: 0.7; }
+    100% { transform: translateY(-50%) scaleX(0.4); opacity: 0; }
+}
+
+/* Экран чернеет после схлопывания контента */
+.crt-screen.power-off {
+    animation: crt-blackout 0.35s 0.28s forwards;
+}
+
+@keyframes crt-blackout {
+    from { background-color: #0c100a; }
+    to   { background-color: #000000; }
+}
+
+/* Включение: яркая линия раскрывается в полный экран, контент проявляется. */
+.crt-screen.power-on {
+    animation: crt-poweron-bg 0.4s ease-out forwards;
+}
+
+@keyframes crt-poweron-bg {
+    from { background-color: #000000; }
+    to   { background-color: #0c100a; }
+}
+
+.crt-screen.power-on::after {
+    content: '';
+    position: absolute;
+    left: 8%;
+    right: 8%;
+    top: 50%;
+    height: 2px;
+    background: #e6fbff;
+    box-shadow: 0 0 8px 3px rgba(230, 251, 255, 0.9);
+    transform: translateY(-50%) scaleX(1);
+    animation: crt-line-in 0.4s ease-out forwards;
+    z-index: 12;
+    pointer-events: none;
+}
+
+@keyframes crt-line-in {
+    0%   { transform: translateY(-50%) scaleX(1) scaleY(1);    opacity: 1; }
+    25%  { transform: translateY(-50%) scaleX(1) scaleY(1);    opacity: 1; }
+    100% { transform: translateY(-50%) scaleX(1) scaleY(140);  opacity: 0; }
+}
+
+.crt-screen.power-on .crt-ascii {
+    animation: crt-content-in 0.4s 0.12s ease-out both;
+}
+
+@keyframes crt-content-in {
+    0%   { opacity: 0; filter: brightness(2.4); }
+    100% { opacity: 1; filter: brightness(1); }
+}
+
+/* === Обновление экрана при смене вкладки (с нуля) === */
+/* Луч-развёртка пробегает сверху вниз, контент кратко вспыхивает. */
+.crt-screen.beam-refresh::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 8px;
+    background: linear-gradient(to bottom, transparent, rgba(230, 251, 255, 0.9), transparent);
+    box-shadow: 0 0 10px 3px rgba(230, 251, 255, 0.5);
+    animation: crt-beam-sweep 0.3s ease-out;
+    z-index: 13;
+    pointer-events: none;
+}
+
+@keyframes crt-beam-sweep {
+    0%   { top: -10%; opacity: 0; }
+    15%  { opacity: 1; }
+    85%  { opacity: 1; }
+    100% { top: 100%; opacity: 0; }
+}
+
+.crt-screen.beam-refresh .crt-ascii {
+    animation: crt-beam-glow 0.3s ease-out;
+}
+
+@keyframes crt-beam-glow {
+    0%   { filter: brightness(1); }
+    25%  { filter: brightness(2.2); }
+    100% { filter: brightness(1); }
+}
+
+/* Строки развертки (Scanlines) */
+.crt-scanlines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        rgba(18, 16, 16, 0) 50%, 
+        rgba(0, 0, 0, 0.25) 50%
+    );
+    background-size: 100% 3px;
+    pointer-events: none;
+    z-index: 10;
+}
+
+/* Мерцание ретро-люминофора */
+.crt-flicker {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(18, 16, 16, 0.08);
+    opacity: 0.15;
+    pointer-events: none;
+    z-index: 11;
+    animation: crt-flicker-anim 0.15s infinite;
+}
+
+@keyframes crt-flicker-anim {
+    0% { opacity: 0.12; }
+    50% { opacity: 0.16; }
+    100% { opacity: 0.12; }
+}
+
+/* ASCII-арт на экране */
+.crt-ascii {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 9px;
+    line-height: 1.05;
+    color: #39ff14; /* Неоново-зеленый */
+    text-shadow: 0 0 2px rgba(57, 255, 20, 0.7);
+    margin: 0;
+    white-space: pre;
+    z-index: 5;
+    user-select: none;
+}
+
+.crt-controls {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
+    gap: 12px;
+    padding-right: 6px;
+}
+
+.crt-led {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    border: 1px solid #505050;
+    transition: background-color 0.2s;
+}
+
+.crt-led.green {
+    background-color: #00ff00;
+    box-shadow: 0 0 3px #00ff00;
+}
+
+.crt-led.orange {
+    background-color: #ffaa00;
+    box-shadow: 0 0 3px #ffaa00;
+}
+
+.crt-led.off {
+    background-color: #333333;
+    box-shadow: none;
+}
+
+.crt-dial {
+    width: 7px;
+    height: 7px;
+    background-color: #c0c0c0;
+    border: 1px solid #000000;
+    border-radius: 50%;
+    box-shadow: none;
+}
+
+.crt-power-btn {
+    width: 14px;
+    height: 14px;
+    background-color: #c0c0c0;
+    border: 1px solid #000000;
+    box-shadow: none;
+    cursor: pointer;
+    border-radius: 2px;
+}
+
+.crt-power-btn:active {
+    background-color: #a0a0a0;
+}
+
+/* Ножка и основание монитора */
+.crt-stand {
+    width: 70px;
+    height: 30px;
+    background-color: #c0c0c0;
+    border: 1px solid #000000;
+    border-top: none;
+    box-shadow: none;
+}
+
+.crt-base {
+    width: 180px;
+    height: 12px;
+    background-color: #c0c0c0;
+    border: 1px solid #000000;
+    border-radius: 2px;
+    box-shadow: none;
+}
+
+/* Правая панель: Описание */
+.display-info-block {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.display-fieldset {
+    border: 1px solid #000000;
+    box-shadow: none;
+    padding: 20px;
+    flex: 1 1 auto; /* Заполняет высоту info-block под монитор */
+    box-sizing: border-box;
+}
+
+.display-legend {
+    font-size: 13px;
+    font-family: 'Inter', sans-serif;
+    font-weight: bold;
+    color: #000000;
+    padding: 0 6px;
+}
+
+.display-fieldset-content {
+    height: 100%;
+    overflow-y: auto;
+}
+
+.display-info-text {
+    font-size: 15px;
+    font-family: 'Inter', sans-serif;
+    line-height: 1.4;
+    color: #000000;
+    margin: 0;
+}
+
+/* Кнопки действий внизу */
+.display-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    padding: 12px 4px;
+    background-color: #c0c0c0;
+}
+
+.display-action-btn {
+    min-width: 75px;
+    height: 23px;
+    font-size: 12px;
+    font-family: 'Inter', sans-serif;
+    color: #000000;
+    background-color: #c0c0c0;
+    border: 1px solid #000000;
+    box-shadow: inset 1px 1px 0px #ffffff, inset -1px -1px 0px #808080;
+    outline: none;
+    cursor: pointer;
+}
+
+.display-action-btn:active:not(:disabled) {
+    box-shadow: inset -1px -1px 0px #ffffff, inset 1px 1px 0px #808080;
+    padding-top: 1px;
+    padding-left: 1px;
+}
+
+.display-action-btn:disabled {
+    color: #808080;
+    text-shadow: 1px 1px 0px #ffffff;
+    cursor: default;
+    box-shadow: inset 1px 1px 0px #ffffff, inset -1px -1px 0px #808080;
+}
+
+/* --- Адаптивность для диалогового окна настроек экрана --- */
+@media (max-width: 768px) {
+    .display-window {
+        width: 95%;
+        margin-top: 20px;
+        box-shadow: -8px 8px 0px #b3f7ff;
+        max-height: calc(100vh - 140px); /* Окно в пределах экрана — тень не съезжает */
+        overflow: hidden;
+    }
+    
+    .display-tab-body {
+        padding: 15px;
+        flex: 1 1 auto;     /* Сжимается под max-height окна */
+        min-height: 0;      /* Разрешает внутренний скролл */
+        overflow-y: auto;
+    }
+    
+    .display-tab-layout {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    /* Уменьшаем монитор на смартфонах */
+    .crt-monitor {
+        width: 280px;
+        height: 210px;
+        padding: 8px;
+    }
+
+    .crt-screen-container {
+        flex: 1 1 auto;
+    }
+
+    .crt-ascii {
+        font-size: 6.5px;
+    }
+
+    .crt-base {
+        width: 150px;
+    }
+    
+    .display-fieldset {
+        height: auto;
+        min-height: 120px;
+        padding: 12px;
+    }
+    
+    .display-info-text {
+        font-size: 13px;
+    }
+}
+
+/* ==========================================================================
+   МОБИЛЬНАЯ АДАПТАЦИЯ (в конец файла): эти переопределения идут ПОСЛЕ глобальных
+   правил .resume-layout / .resume-section / .main-content / .tree-toggle /
+   .accordion, иначе более поздние глобальные правила перекрыли бы мобильные.
+   ========================================================================== */
+@media (max-width: 768px) {
+    /* Сброс ховеров для элементов, чьи глобальные :hover-правила ниже блока шапки */
+    .tree-toggle:hover {
+        background-color: #ffffff;
+    }
+    .accordion-header:hover .accordion-toggle-btn {
+        background-color: #ffffff;
+    }
+    .accordion-header:hover .accordion-title {
+        color: #000000;
+    }
+
+    /* Свободный скролл без прилипания: карточки высокие, snap мешает дочитывать */
+    .resume-layout {
+        scroll-snap-type: none;
+    }
+    .resume-section {
+        padding-top: 50px;
+        padding-bottom: 50px;
+        scroll-snap-stop: normal;
+    }
+}
+

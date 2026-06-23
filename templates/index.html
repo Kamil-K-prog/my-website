@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ретро Сайт</title>
+    <!-- Подключаем современный шрифт Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Подключаем CSS стили -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <!-- Шапка сайта (сверху) -->
+    <header class="site-header" id="siteHeader">
+        <!-- Блок логотипа (слева) -->
+        <div class="logo-block">
+            <div class="logo-circle">
+                <span class="logo-text">Лого</span>
+            </div>
+        </div>
+        
+        <!-- Навигация (справа от логотипа) -->
+        <nav class="header-nav">
+            <!-- Ссылка "Главная" -->
+            <a href="/" class="retro-btn nav-btn selected" id="btnHome" aria-label="Раздел Главная">
+                <div class="btn-shadow">
+                    <div class="corner corner-tl"></div>
+                    <div class="corner corner-br"></div>
+                    <div class="plus-line plus-line-v"></div>
+                    <div class="plus-line plus-line-h"></div>
+                </div>
+                <div class="btn-body">
+                    <span class="btn-text text-idle">Главная</span>
+                    <span class="btn-text text-hover">Главная</span>
+                    <span class="btn-text text-selected">Главная</span>
+                </div>
+            </a>
+            
+            <!-- Ссылка "Резюме" -->
+            <a href="/resume" class="retro-btn nav-btn" id="btnResume" aria-label="Раздел Резюме">
+                <div class="btn-shadow">
+                    <div class="corner corner-tl"></div>
+                    <div class="corner corner-br"></div>
+                    <div class="plus-line plus-line-v"></div>
+                    <div class="plus-line plus-line-h"></div>
+                </div>
+                <div class="btn-body">
+                    <span class="btn-text text-idle">Резюме</span>
+                    <span class="btn-text text-hover">Резюме</span>
+                    <span class="btn-text text-selected">Резюме</span>
+                </div>
+            </a>
+        </nav>
+    </header>
+
+    <!-- Основной контент страницы (табличка "В разработке") -->
+    <main class="main-content">
+        <div class="retro-window">
+            <div class="window-titlebar">
+                <span class="titlebar-text">System Message</span>
+                <div class="window-controls">
+                    <button class="win-btn btn-minimize" aria-label="Свернуть"><span class="icon-min">_</span></button>
+                    <button class="win-btn btn-maximize" aria-label="Развернуть"><span class="icon-max">□</span></button>
+                    <button class="win-btn btn-close" aria-label="Закрыть"><span class="icon-close">✕</span></button>
+                </div>
+            </div>
+            <div class="window-body">
+                <h1 class="window-heading">В разработке</h1>
+                <p class="window-text">Главная страница сайта в данный момент находится на стадии проектирования и верстки.</p>
+                <p class="window-subtext">Пока что вы можете посмотреть моё <strong>Резюме</strong>:</p>
+                <div class="window-actions">
+                    <a href="/resume" class="retro-btn inline-btn" aria-label="Перейти к резюме">
+                        <div class="btn-shadow">
+                            <div class="corner corner-tl"></div>
+                            <div class="corner corner-br"></div>
+                            <div class="plus-line plus-line-v"></div>
+                            <div class="plus-line plus-line-h"></div>
+                        </div>
+                        <div class="btn-body">
+                            <span class="btn-text text-idle">Перейти к резюме</span>
+                            <span class="btn-text text-hover">Перейти к резюме</span>
+                            <span class="btn-text text-selected">Перейти к резюме</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Подключаем JavaScript-файл -->
+    <script src="{{ url_for('static', filename='js/main.js') }}" defer></script>
+</body>
+</html>
