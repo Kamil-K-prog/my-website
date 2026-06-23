@@ -178,72 +178,87 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // 5. Windows 95 File Explorer (Карточка "Проекты")
-    const readmeData = {
-        'AI_chat': `# AI Chat (Telegram Bot)
-
-Ассистент на базе искусственного интеллекта в вашем Telegram.
-
-## Технологический стек
-* **Язык разработки:** Python 3.10+
-* **Фреймворк бота:** \`aiogram\` (v3) — современная асинхронная библиотека для работы с Telegram Bot API.
-* **Интеграция ИИ:** OpenAI API (\`gpt-4o-mini\`), Google GenAI SDK (\`gemini-1.5-flash\`).
-* **Развертывание:** Docker, systemd, Webhooks.
-
-## Основной функционал
-1. **Интеллектуальный диалог:** Поддержка контекста беседы для каждого отдельного пользователя.
-2. **Мультимодальность:** Анализ изображений и распознавание голосовых сообщений (Whisper / Gemini SDK).
-3. **Админ-панель:** Статистика запросов, логирование и инструмент рассылки.`,
-
-        'my-website': `# My Website (Ретро Портфолио)
-
-Персональный сайт-портфолио, стилизованный под интерфейсы классических операционных систем (Windows 95 / 98 / 2000).
-
-## Технологический стек
-* **Бэкенд:** Python (\`Flask\`) — легковесный веб-фреймворк.
-* **Фронтенд:** Чистый HTML5, Vanilla CSS, Vanilla JavaScript.
-* **Стилизация:** Кастомный CSS без использования фреймворков (Tailwind, Bootstrap).
-
-## Ключевые решения
-* **Scroll Snapping:** Полноэкранный постраничный скролл секций резюме.
-* **Ретро-детали:**
-  * Анимация сжатия и раскрытия шапки сайта.
-  * Кнопки с объемной рамкой из уголков и плюсика, смыкающихся при наведении.
-  * Боковое меню «Содержание» с анимацией раздваивающегося ромбика.
-  * Карточка «Обо мне» в стиле плоского текстового редактора Notepad.
-  * Карточка «Что я умею» с аккордеонами и кнопками \`+\` / \`-\`.
-  * Карточка «Проекты» в стиле двухпанельного Проводника Windows 95 с рендерингом Markdown.`,
-
-        'project-dnd': `# ⚠️ Ошибка чтения файла
-
-Файл README.md поврежден или не может быть прочитан.
-
-* Код ошибки: 0x80070570
-* Файл или каталог поврежден и не читается.
-* Пожалуйста, запустите утилиту chkdsk.`
+    // Конфигурация проектов: raw-URL README на GitHub и ссылка на репозиторий.
+    // README грузится напрямую с raw.githubusercontent.com (CORS: Access-Control-Allow-Origin: *).
+    const projectConfig = {
+        'AI_chat': {
+            rawUrl: 'https://raw.githubusercontent.com/Kamil-K-prog/AI_chat/main/README.md',
+            repoUrl: 'https://github.com/Kamil-K-prog/AI_chat'
+        },
+        'my-website': {
+            rawUrl: 'https://raw.githubusercontent.com/Kamil-K-prog/my-website/main/README.md',
+            repoUrl: 'https://github.com/Kamil-K-prog/my-website'
+        },
+        'project-dnd': {
+            rawUrl: 'https://raw.githubusercontent.com/Kamil-K-prog/project-dnd/master/README.md',
+            repoUrl: 'https://github.com/Kamil-K-prog/project-dnd'
+        }
     };
+
+    // Кэш загруженных README — не грузим повторно при переключении проектов
+    const readmeCache = {};
 
     const treeItems = document.querySelectorAll('.explorer-tree .tree-item');
     const readmeRenderer = document.getElementById('readmeRenderer');
+    const addressLink = document.getElementById('addressLink');
 
-    // Функция для рендеринга Markdown в правую панель
-    const renderReadme = (projectName) => {
+    // Рендеринг Markdown-текста в правую панель (marked.js, с fallback на <pre>)
+    const renderMarkdown = (markdownText) => {
         if (!readmeRenderer) return;
-        
-        const markdownText = readmeData[projectName];
-        if (markdownText) {
-            if (window.marked && typeof window.marked.parse === 'function') {
-                readmeRenderer.innerHTML = window.marked.parse(markdownText);
-            } else {
-                // Запасной вариант, если библиотека marked не загрузилась
-                readmeRenderer.innerHTML = `<pre style="white-space: pre-wrap; font-family: monospace;">${markdownText}</pre>`;
-            }
+        if (window.marked && typeof window.marked.parse === 'function') {
+            readmeRenderer.innerHTML = window.marked.parse(markdownText);
         } else {
-            readmeRenderer.innerHTML = '<p style="color: #808080; font-style: italic;">Выберите проект в дереве каталогов для просмотра README.md</p>';
+            // Запасной вариант, если библиотека marked не загрузилась
+            const escaped = markdownText.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            readmeRenderer.innerHTML = `<pre style="white-space: pre-wrap; font-family: monospace;">${escaped}</pre>`;
         }
-        // Скроллим контент README наверх при смене проекта
-        const contentPanel = document.querySelector('.explorer-content');
-        if (contentPanel) {
-            contentPanel.scrollTop = 0;
+    };
+
+    // Асинхронная загрузка и рендеринг README.md с GitHub
+    const renderReadme = async (projectName) => {
+        if (!readmeRenderer) return;
+
+        const config = projectConfig[projectName];
+        if (!config) {
+            readmeRenderer.innerHTML = '<p class="readme-loading">Выберите проект в дереве каталогов для просмотра README.md</p>';
+            if (addressLink) { addressLink.href = '#'; addressLink.textContent = '—'; }
+            return;
+        }
+
+        // Обновляем адресную строку ссылкой на репозиторий
+        if (addressLink) {
+            addressLink.href = config.repoUrl;
+            addressLink.textContent = config.repoUrl;
+        }
+
+        // Скроллим контент README наверх при смене проекта (скролл-контейнер — .explorer-scroll)
+        const scrollPanel = document.querySelector('.explorer-scroll');
+        if (scrollPanel) {
+            scrollPanel.scrollTop = 0;
+        }
+
+        // Отдаём из кэша, если уже загружали
+        if (readmeCache[projectName]) {
+            renderMarkdown(readmeCache[projectName]);
+            return;
+        }
+
+        // Состояние загрузки
+        readmeRenderer.innerHTML = '<p class="readme-loading">⏳ Загрузка README.md с GitHub…</p>';
+
+        try {
+            const response = await fetch(config.rawUrl, { cache: 'no-cache' });
+            if (!response.ok) throw new Error('HTTP ' + response.status);
+            const markdownText = await response.text();
+            readmeCache[projectName] = markdownText;
+            renderMarkdown(markdownText);
+        } catch (err) {
+            readmeRenderer.innerHTML =
+                '<div class="readme-error">' +
+                '<p><strong>⚠ Не удалось загрузить README.md</strong></p>' +
+                '<p>' + err.message + '</p>' +
+                '<p>Проверьте подключение к сети или откройте репозиторий по ссылке «Адрес».</p>' +
+                '</div>';
         }
     };
 

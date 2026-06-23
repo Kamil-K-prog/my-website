@@ -178,6 +178,13 @@
                     <span class="menubar-item">Tools</span>
                     <span class="menubar-item">Help</span>
                 </div>
+                <!-- Адресная строка проводника (ссылка на репозиторий GitHub) -->
+                <div class="explorer-addressbar">
+                    <span class="address-label">Адрес</span>
+                    <div class="address-field">
+                        <a class="address-link" id="addressLink" href="#" target="_blank" rel="noopener noreferrer" title="Открыть репозиторий на GitHub">—</a>
+                    </div>
+                </div>
                 <!-- Рабочая область проводника (две колонки) -->
                 <div class="explorer-body">
                     <!-- Левая колонка: Дерево папок -->
@@ -232,7 +239,7 @@
                                                                 <li class="tree-item leaf" id="projectDnd" data-project="project-dnd" tabindex="0" role="button" aria-label="Проект project-dnd">
                                                                     <div class="tree-row">
                                                                         <span class="tree-spacer"></span>
-                                                                        <img class="tree-icon" src="{{ url_for('static', filename='icons/w95_66.ico') }}" alt="Поврежденная папка">
+                                                                        <img class="tree-icon" src="{{ url_for('static', filename='icons/w2k_closed_folder.ico') }}" alt="Проект">
                                                                         <span class="tree-label">project-dnd</span>
                                                                     </div>
                                                                 </li>
