@@ -1,4 +1,5 @@
 /.venv
-/References
 __pycache__/
+/.idea
+/References
 *.pyc

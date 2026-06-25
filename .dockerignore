@@ -1,0 +1,12 @@
+.gitignore
+.dockerignore
+Dockerfile
+docker-compose.yml
+AGENTS.md
+README.md
+*.pyc
+/.github
+/.venv
+/References
+__pycache__/
+/nginx
