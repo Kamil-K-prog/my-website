@@ -35,13 +35,16 @@ jobs:
         run: |
           mkdir -p ~/.config/systemd/user
           cp my-website.service ~/.config/systemd/user/my-website.service
+          export XDG_RUNTIME_DIR=/run/user/$(id -u)
           systemctl --user daemon-reload
       - name: log in to GHCR
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
       - name: pull new image
         run: docker compose pull
       - name: restart container service
-        run: systemctl --user restart my-website.service
+        run: |
+          export XDG_RUNTIME_DIR=/run/user/$(id -u)
+          systemctl --user restart my-website.service
       - name: prune old images
         run: docker image prune -f
       - name: smoke-test
