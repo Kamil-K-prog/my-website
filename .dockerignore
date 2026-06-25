@@ -5,6 +5,7 @@ docker-compose.yml
 AGENTS.md
 README.md
 *.pyc
+my-website.service
 /.github
 /.venv
 /References

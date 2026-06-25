@@ -1,0 +1,51 @@
+name: CD for my website
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  container-build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v7
+      - name: log in to GHCR
+        uses: docker/login-action@v4
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: build image
+        uses: docker/build-push-action@v6
+        with:
+          push: 'true'
+          tags: ghcr.io/kamil-k-prog/my-website:latest
+  deploy:
+    needs: container-build
+    runs-on: self-hosted
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v7
+      - name: update systemd unit
+        run: |
+          mkdir -p ~/.config/systemd/user
+          cp my-website.service ~/.config/systemd/user/my-website.service
+          export XDG_RUNTIME_DIR=/run/user/$(id -u)
+          systemctl --user daemon-reload
+      - name: log in to GHCR
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+      - name: pull new image
+        run: docker compose pull
+      - name: restart container service
+        run: |
+          export XDG_RUNTIME_DIR=/run/user/$(id -u)
+          systemctl --user restart my-website.service
+      - name: prune old images
+        run: docker image prune -f
+      - name: smoke-test
+        run: curl -k -f https://localhost:4000 || exit 1
