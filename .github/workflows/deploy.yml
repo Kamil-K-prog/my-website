@@ -46,6 +46,5 @@ jobs:
         run: docker image prune -f
       - name: smoke-test
         run: |
-#         Подождать, пока контейнеры поднимутся
-          sleep 10
+          sleep 10 # Подождать, пока контейнеры поднимутся
           curl -k -f https://localhost:4000 || exit 1
