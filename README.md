@@ -1,3 +1,7 @@
+[![Deploy on server](https://github.com/Kamil-K-prog/my-website/actions/workflows/deploy.yml/badge.svg)](https://github.com/Kamil-K-prog/my-website/actions)
+
 В этом репозитории находится исходный код сайта, с которого вы, скорее всего, пришли.
 
 Бэкенда тут почти нет, а фронт сгенерирован агентом, так как я плох в вёрстке. Но сам дизайн полностью мой.
+
+На сайте отработан CD: новая версия разворачивается на сервере автоматически

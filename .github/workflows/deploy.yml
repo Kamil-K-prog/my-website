@@ -1,4 +1,4 @@
-name: CD for my website
+name: Deploy on server
 
 on:
   push:
