@@ -42,10 +42,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const targetId = item.getAttribute('data-target');
             if (targetId) {
                 const targetElement = document.getElementById(targetId);
-                if (targetElement) {
-                    targetElement.scrollIntoView({ 
-                        behavior: 'smooth',
-                        block: 'start'
+                if (targetElement && scrollContainer) {
+                    const targetScrollTop = targetElement.getBoundingClientRect().top - scrollContainer.getBoundingClientRect().top + scrollContainer.scrollTop;
+                    scrollContainer.scrollTo({ 
+                        top: targetScrollTop,
+                        behavior: 'smooth'
                     });
                 }
             }
@@ -478,9 +479,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 heroMenuItem.classList.add('active');
             }
 
-            heroSection.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
+            const targetScrollTop = heroSection.getBoundingClientRect().top - scrollContainer.getBoundingClientRect().top + scrollContainer.scrollTop;
+            scrollContainer.scrollTo({
+                top: targetScrollTop,
+                behavior: 'smooth'
             });
 
             scrollTimeout = setTimeout(() => {
