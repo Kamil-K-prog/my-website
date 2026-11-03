@@ -50,4 +50,6 @@ jobs:
       - name: smoke-test
         run: |
           sleep 10 # Подождать, пока контейнеры поднимутся
-          curl -k -f https://localhost:4000 || exit 1
+          curl --noproxy '*' --resolve kami-k.ru:443:127.0.0.1 -fsS -o /dev/null https://kami-k.ru/
+          status=$(curl --noproxy '*' --resolve 30215.snk.wtf:443:127.0.0.1 -sS -o /dev/null -w '%{http_code}' https://30215.snk.wtf/)
+          test "$status" = 404
